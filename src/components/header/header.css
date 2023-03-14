@@ -1,0 +1,23 @@
+@import '../../index.css';
+
+.header {
+  display: flex;
+  width: 100vw;
+  height: 134px;
+  justify-content: center;
+  background-color: var(--bg_section_primary);
+  font-size: 16px;
+  font-family: 'Inika', serif;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  gap: 15px;
+  max-width: 452px;
+}

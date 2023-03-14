@@ -1,5 +1,5 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+/* :root {
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,58 +12,44 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
+} */
+  @import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inter&display=swap');
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+:root {
+  font-family: 'Inter', sans-serif;
+  line-height: 30px;
+
+  --bg_section_primary: #EDF2EC;
+  --header_color: #1d262d;
+  --white: #ffffff;
+  --header_links: #c7ebff;
+  --header_links_hover: #c7ebffa3;
+  --tag_background: #585654b4;
+  --text_very_secondary: #9a9998b4;
+  --white_transparent: #ffffff14;
+  --light_beige_text: antiquewhite;
+  --cute_background: #f3f2f2;
+  --form_color: #ac90df;
+
+  --main_content_width: 1200px;
+  --main_content_width_mobile: 300px;
+  --main_content_width_mobile_small: 0px;
+  --main_content_width_tablet: 720px;
+
+  --font-size-xs: 15px;
+  --font-size-accent: 30px;
+  --displacement_animation: 3px;
 }
 
 body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  /* min-width: 320px;
+  min-height: 100vh; */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.content-wrapper {
+  width: 1220px;
 }
