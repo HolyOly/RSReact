@@ -12,8 +12,12 @@ export function Header() {
           <span>Plants</span>
         </div>
         <div className="links">
-          <Link to="/">Home</Link>
-          <Link to="/about">About us</Link>
+          <Link to="/" className="links-item">
+            Home
+          </Link>
+          <Link to="/about" className="links-item">
+            About us
+          </Link>
         </div>
       </div>
     </header>

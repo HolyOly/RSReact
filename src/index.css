@@ -13,13 +13,20 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 } */
-  @import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
   font-family: 'Inter', sans-serif;
   line-height: 30px;
+  font-style: normal;
 
   --bg_section_primary: #EDF2EC;
+  --text_title: #717171;
+  --color_primary_intensive: #499A18;
+  --text_color_primary: #636060;
+  --text_color_dark: #000000;
+  --color_item_bright: #E06733;
+
   --header_color: #1d262d;
   --white: #ffffff;
   --header_links: #c7ebff;
@@ -52,4 +59,14 @@ body {
 
 .content-wrapper {
   width: 1220px;
+}
+
+.position-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
 }
