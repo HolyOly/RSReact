@@ -42,5 +42,5 @@
 }
 
 .header-item:visited {
-  color: var(--text_color_dark);
+  color: var(--color_item_bright);
 }

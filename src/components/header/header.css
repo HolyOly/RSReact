@@ -27,3 +27,7 @@
 .links-item:visited {
   color: var(--text_color_dark);
 }
+
+.links-item.active-path {
+  color: var(--color_item_bright);
+}
