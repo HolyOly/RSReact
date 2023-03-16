@@ -1,8 +1,15 @@
-// declare module '*.png';
-// declare module '*.jpeg';
-// declare module '*.svg';
+declare interface ICard {
+  src: string;
+  alt: string;
+  title: string | undefined;
+  description: string | undefined;
+  like: boolean;
+}
 
-// declare module '*.svg' {
-//   const content: string;
-//   export default content;
-// }
+declare interface IIcon {
+  src: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  color?: string;
+}

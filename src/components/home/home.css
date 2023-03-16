@@ -44,3 +44,10 @@
 .header-item:visited {
   color: var(--color_item_bright);
 }
+
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin: 0 auto;
+}
