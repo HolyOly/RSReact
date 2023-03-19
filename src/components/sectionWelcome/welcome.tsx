@@ -6,7 +6,7 @@ export function Welcome() {
   return (
     <div className="welcome-wrapper content-wrapper">
       <div className="welcome-leaf">
-        <img src={Leafs} alt="Leafs" />
+        <img src={Leafs} alt="Leafs" className="welcome-leaf-img" />
       </div>
       <div className="welcome-text">
         <h1 className="welcome-title">

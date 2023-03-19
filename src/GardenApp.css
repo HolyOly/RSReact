@@ -19,3 +19,13 @@
   font-size: 20px;
   color: var(--text_color_primary);
 }
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .content-wrapper {
+    width: 300px;
+  }
+
+  .ordinary-text {
+    font-size: 15px;
+  }
+}

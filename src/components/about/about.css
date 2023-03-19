@@ -33,3 +33,14 @@
 .about-text {
   line-height: 35px;
 }
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .about-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .about-houseplant {
+    max-width: 250px;
+  }
+}

@@ -37,3 +37,21 @@
   font-size: 16px;
   color: var(--text_color_dark);
 }
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .welcome-wrapper {
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+  }
+
+  .welcome-text {
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .welcome-leaf-img {
+    max-width: 250px;
+  }
+}

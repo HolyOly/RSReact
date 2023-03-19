@@ -61,3 +61,17 @@
   margin: 0 auto;
   padding-bottom: 50px;
 }
+
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .cards-header {
+    flex-direction: column;
+  }
+
+  .cards-header-items {
+    margin-left: 0px;
+    gap: 20px;
+    min-width: 100px;
+    max-width: 200px;
+  }
+}
