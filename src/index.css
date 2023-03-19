@@ -26,6 +26,7 @@
   --text_color_primary: #636060;
   --text_color_dark: #000000;
   --color_item_bright: #E06733;
+  --color_white_unchangeable: #FFFFFF;
 
   --header_color: #1d262d;
   --white: #ffffff;
@@ -57,15 +58,32 @@ body {
   min-height: 100vh; */
 }
 
-.content-wrapper {
-  width: 1220px;
+header {
+  display: flex;
+  width: 100vw;
+  height: 134px;
+  justify-content: center;
+  background-color: var(--bg_section_primary);
+  font-size: 16px;
+  font-family: 'Inika', serif;
 }
 
-.position-wrapper {
+main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
 }
+
+footer {
+  display: flex;
+  width: 100vw;
+  height: 130px;
+  justify-content: center;
+  background-color: var(--color_white_unchangeable);
+  font-size: 16px;
+}
+
 
 a {
   text-decoration: none;

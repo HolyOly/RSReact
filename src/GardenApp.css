@@ -3,9 +3,12 @@
   height: 100%;
 }
 
-main {
+.content-wrapper {
+  width: 1220px;
+}
+
+.position-wrapper {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   width: 100%;
 }
