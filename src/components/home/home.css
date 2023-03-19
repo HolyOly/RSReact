@@ -28,6 +28,8 @@
   flex-direction: column;
   margin-left: 100px;
   gap: 20px;
+  min-width: 400px;
+  max-width: 600px;
 }
 
 .cards-header-links {

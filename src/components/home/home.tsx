@@ -12,11 +12,6 @@ export function Home() {
       <div className="cards-header content-wrapper">
         <p className="cards-header-title">Service and our projects</p>
         <div className="cards-header-items">
-          <div className="cards-header-links">
-            <a className="header-item">Gardens</a>
-            <a className="header-item">Lawn</a>
-            <a className="header-item">Planting</a>
-          </div>
           <Search></Search>
         </div>
       </div>

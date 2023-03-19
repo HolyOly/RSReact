@@ -31,9 +31,14 @@ export class Search extends React.Component {
             placeholder="search"
             id="searchInput"
             onChange={this.changeSearchValue}
+            data-testid="search-input-element"
           />
         </div>
-        {this.state.previousQuery && <div>From localStorage: {this.state.previousQuery}</div>}
+        {this.state.previousQuery && (
+          <div className="storage-value ordinary-text">
+            From localStorage: {this.state.previousQuery}
+          </div>
+        )}
       </div>
     );
   }

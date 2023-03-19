@@ -18,7 +18,7 @@ export function About() {
         </div>
       </div>
       <div className="about-img">
-        <img src={HousePlant} alt="" />
+        <img src={HousePlant} alt="Houseplant" />
       </div>
     </div>
   );
