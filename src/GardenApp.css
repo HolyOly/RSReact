@@ -5,10 +5,17 @@
 
 .content-wrapper {
   width: 1220px;
+  margin: 0 auto;
 }
 
 .position-wrapper {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.ordinary-text {
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--text_color_primary);
 }

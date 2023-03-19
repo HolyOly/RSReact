@@ -26,10 +26,7 @@
 }
 
 .welcome-subtitle {
-  font-weight: 400;
-  font-size: 20px;
   line-height: 35px;
-  color: var(--text_color_primary);
 }
 
 .welcome-btn {
