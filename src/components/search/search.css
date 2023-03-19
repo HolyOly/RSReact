@@ -20,7 +20,7 @@
   width: 100%;
   border-radius: 100px;
   height: 40px;
-  border: 3px solid var(--color_item_bright);
+  border: 3px solid #e06733a6;
   padding-left: 40px;
   font-size: 17px;
   color: gray;

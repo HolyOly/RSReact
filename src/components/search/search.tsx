@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import SearchSvg from '../../assets/svg/search.svg';
 import './search.css';
 
 export class Search extends React.Component {
+  state = { query: '', previousQuery: '' };
+
+  changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ query: e.target.value });
+    localStorage.setItem('searchQuery', e.target.value);
+  };
+
+  componentDidMount() {
+    if (localStorage.getItem('searchQuery')) {
+      this.setState({ previousQuery: localStorage.getItem('searchQuery') });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -11,16 +24,16 @@ export class Search extends React.Component {
             <SearchSvg></SearchSvg>
           </div>
           <input
-            // ref={props.refProp}
             className="search__input"
             autoComplete="off"
             type="search"
             name="search"
             placeholder="search"
             id="searchInput"
-            // onChange={props.onChangeHandler}
+            onChange={this.changeSearchValue}
           />
         </div>
+        {this.state.previousQuery && <div>From localStorage: {this.state.previousQuery}</div>}
       </div>
     );
   }
