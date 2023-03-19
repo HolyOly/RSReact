@@ -16,7 +16,6 @@ export function Header() {
       <div className="header-content content-wrapper">
         <div className="logo">
           <LogoSvg></LogoSvg>
-          {/* <img src={LogoSvg} className="logo-img" alt="logo" /> */}
           <span>Plants</span>
         </div>
         <div className="links">
