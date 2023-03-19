@@ -48,6 +48,8 @@
 .cards-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 25px;
   margin: 0 auto;
+  padding-bottom: 50px;
 }
