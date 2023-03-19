@@ -25,7 +25,13 @@
 
 .cards-header-items {
   display: flex;
+  flex-direction: column;
   margin-left: 100px;
+  gap: 20px;
+}
+
+.cards-header-links {
+  display: flex;
   gap: 30px;
 }
 
