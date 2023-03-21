@@ -16,7 +16,7 @@ export class Header extends React.Component {
       <header className="header">
         <div className="header-content content-wrapper">
           <div className="logo">
-            <LogoSvg></LogoSvg>
+            <LogoSvg />
             <span>Plants</span>
           </div>
           <div className="links">

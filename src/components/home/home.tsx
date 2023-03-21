@@ -8,16 +8,16 @@ import { Search } from '../search/search';
 export function Home() {
   return (
     <div className="home-wrapper position-wrapper">
-      <Welcome></Welcome>
+      <Welcome />
       <div className="cards-header content-wrapper">
         <p className="cards-header-title">Service and our projects</p>
         <div className="cards-header-items">
-          <Search></Search>
+          <Search />
         </div>
       </div>
       <div className="cards cards-wrapper content-wrapper">
         {cardsData.map((card, index) => (
-          <Card {...card} key={index}></Card>
+          <Card {...card} key={index} />
         ))}
       </div>
     </div>

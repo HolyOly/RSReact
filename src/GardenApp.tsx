@@ -10,15 +10,15 @@ import { Undefined } from './components/undefinedPage/404';
 export function GardenApp() {
   return (
     <div className="page">
-      <Header></Header>
+      <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/about" element={<About></About>}></Route>
-          <Route path="*" element={<Undefined></Undefined>}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="*" element={<Undefined />}></Route>
         </Routes>
       </main>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

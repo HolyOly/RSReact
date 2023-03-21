@@ -11,7 +11,7 @@ export function Card(props: ICard) {
       </div>
       <div className="card-title">{props.title}</div>
       <div className="card-description">{props.description}</div>
-      <div className="card-like">{props.like ? <LikeFill></LikeFill> : <Like></Like>}</div>
+      <div className="card-like">{props.like ? <LikeFill /> : <Like />}</div>
     </div>
   );
 }

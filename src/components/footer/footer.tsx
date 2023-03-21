@@ -13,16 +13,16 @@ export function Footer() {
         <div className="school">Rolling Scopes School</div>
         <div className="social">
           <a href="https://www.instagram.com/">
-            <InstagramSvg></InstagramSvg>
+            <InstagramSvg />
           </a>
           <a href="https://www.facebook.com/">
-            <FacebookSvg></FacebookSvg>
+            <FacebookSvg />
           </a>
           <a href="https://github.com/">
             <GithubSvg></GithubSvg>
           </a>
           <a href="https://t.me/LeeChatelier">
-            <TelegramSvg></TelegramSvg>
+            <TelegramSvg />
           </a>
         </div>
       </div>
