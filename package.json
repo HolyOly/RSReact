@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "lint": "eslint src"
+    "lint": "eslint --ext js,ts,tsx src"
   },
   "dependencies": {
     "@jest/globals": "^29.5.0",

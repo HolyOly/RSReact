@@ -7,13 +7,18 @@ export class Search extends React.Component {
 
   changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({ query: e.target.value });
-    localStorage.setItem('searchQuery', e.target.value);
   };
 
+  // get value from localstorage
   componentDidMount() {
     if (localStorage.getItem('searchQuery')) {
       this.setState({ previousQuery: localStorage.getItem('searchQuery') });
     }
+  }
+
+  // save value to localstorage
+  componentWillUnmount() {
+    localStorage.setItem('searchQuery', this.state.query);
   }
 
   render() {
