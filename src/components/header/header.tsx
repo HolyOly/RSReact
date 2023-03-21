@@ -6,6 +6,7 @@ import './header.css';
 enum RouterPathes {
   HOME = '/',
   ABOUT = '/about',
+  CONTACTS = '/contacts',
 }
 
 export class Header extends React.Component {
@@ -37,6 +38,15 @@ export class Header extends React.Component {
               onClick={() => this.setState({ active: RouterPathes.ABOUT })}
             >
               About us
+            </Link>
+            <Link
+              to={RouterPathes.CONTACTS}
+              className={`links-item ${
+                this.state.active === RouterPathes.CONTACTS ? 'active-path' : ''
+              }`}
+              onClick={() => this.setState({ active: RouterPathes.CONTACTS })}
+            >
+              Contacts
             </Link>
           </div>
         </div>

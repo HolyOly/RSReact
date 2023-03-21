@@ -1,0 +1,35 @@
+.contacts-wrapper {
+  background-color: var(--bg_section_primary);
+}
+
+.contacts-title {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-family: 'Inika';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 52px;
+  color: var(--color_primary_intensive);
+}
+
+.contacts-layout {
+  display: flex;
+  justify-content: space-evenly
+}
+
+.form {
+  max-width: 500px;
+}
+
+.contacts-img,
+.contacts-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.form-label {
+  display: block;
+}
