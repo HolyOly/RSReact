@@ -1,0 +1,23 @@
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leaf-logo {
+  width: 25px;
+}
+
+.links {
+  display: flex;
+  gap: 15px;
+  max-width: 452px;
+}
+
+.links-item:visited {
+  color: var(--text_color_dark);
+}
+
+.links-item.active-path {
+  color: var(--color_item_bright);
+}
