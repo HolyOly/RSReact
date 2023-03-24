@@ -1,15 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
 
-export class Contacts extends React.Component {
+interface IFormState {
   fields: IFormFields;
-  photoPath: string | ArrayBuffer | null;
+  fixedFilePath: string | ArrayBuffer | null;
+}
 
-  constructor(props: any) {
+export class Contacts extends React.Component<Record<string, never>, IFormState> {
+  state: IFormState;
+  fieldsRefs: IFormFieldsRef;
+
+  constructor(props: Record<string, never>) {
     super(props);
-    this.fields = {
+    this.fieldsRefs = {
       inputBirthday: React.createRef(),
       inputName: React.createRef(),
       inputFile: React.createRef(),
@@ -18,6 +22,40 @@ export class Contacts extends React.Component {
       inputNotification: React.createRef(),
       inputFemale: React.createRef(),
     };
+    this.state = {
+      fields: {
+        inputBirthday: '',
+        inputName: '',
+        inputFile: '',
+        inputCountry: '',
+        inputMale: null,
+        inputFemale: null,
+        inputNotification: null,
+      },
+      fixedFilePath: null,
+    };
+    this.handleFixFilePath = this.handleFixFilePath.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    this.setState({
+      fields: {
+        inputName: this.fieldsRefs.inputName?.current?.value,
+        inputBirthday: this.fieldsRefs.inputBirthday?.current?.value,
+        inputCountry: this.fieldsRefs.inputCountry?.current?.value,
+        inputMale: this.fieldsRefs.inputMale?.current?.checked,
+        inputFemale: this.fieldsRefs.inputFemale?.current?.checked,
+        inputNotification: this.fieldsRefs.inputNotification?.current?.checked,
+        inputFile: this.fieldsRefs.inputFile?.current?.name,
+      },
+      fixedFilePath: this.state.fixedFilePath,
+    });
+  }
+
+  componentDidUpdate() {
+    console.log(this.state);
   }
 
   handleFixFilePath(e: { target: { files: FileList | null } }) {
@@ -25,11 +63,13 @@ export class Contacts extends React.Component {
       const files = e.target.files;
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
-      return (reader.onload = (e) => {
+      reader.onload = (e) => {
         if (e.target) {
-          this.photoPath = e.target.result;
+          this.setState({ fixedFilePath: e.target.result });
+        } else {
+          this.setState({ fixedFilePath: null });
         }
-      });
+      };
     }
   }
 
@@ -43,14 +83,14 @@ export class Contacts extends React.Component {
               <img src={ContactImg} alt="Contacts" className="contacts-img" />
             </div>
             <div className="contacts-form">
-              <form className="form">
+              <form className="form" onSubmit={(e) => this.handleSubmit(e)}>
                 <label className="form-label">
                   Name:
                   <input
                     className="form-input_text"
                     data-testid="input-name"
                     type="text"
-                    ref={this.fields.inputName}
+                    ref={this.fieldsRefs.inputName}
                     required
                   />
                 </label>
@@ -59,7 +99,7 @@ export class Contacts extends React.Component {
                   <input
                     className="form-input_date"
                     type="date"
-                    ref={this.fields.inputBirthday}
+                    ref={this.fieldsRefs.inputBirthday}
                     required
                   />
                 </label>
@@ -69,7 +109,7 @@ export class Contacts extends React.Component {
                     className="form-input_list"
                     name="countries"
                     id=""
-                    ref={this.fields.inputCountry}
+                    ref={this.fieldsRefs.inputCountry}
                   >
                     <option value="Turkey">Turkey</option>
                     <option value="Montenegro">Montenegro</option>
@@ -86,7 +126,7 @@ export class Contacts extends React.Component {
                       type="radio"
                       name="gender"
                       value="Male"
-                      ref={this.fields.inputMale}
+                      ref={this.fieldsRefs.inputMale}
                       defaultChecked
                     />
                     Male
@@ -97,7 +137,7 @@ export class Contacts extends React.Component {
                       type="radio"
                       name="gender"
                       value="Female"
-                      ref={this.fields.inputFemale}
+                      ref={this.fieldsRefs.inputFemale}
                     />
                     Female
                   </label>
@@ -108,7 +148,7 @@ export class Contacts extends React.Component {
                     type="checkbox"
                     name=""
                     id=""
-                    ref={this.fields.inputNotification}
+                    ref={this.fieldsRefs.inputNotification}
                   />
                   I want to receive notifications about promo and sales
                 </label>
@@ -116,7 +156,7 @@ export class Contacts extends React.Component {
                   Choose profile picture
                   <input
                     type="file"
-                    ref={this.fields.inputFile}
+                    ref={this.fieldsRefs.inputFile}
                     onChange={this.handleFixFilePath}
                     name=""
                     id="inputFile"
@@ -124,7 +164,7 @@ export class Contacts extends React.Component {
                     required
                   />
                 </label>
-                <button type="submit">Submit</button>
+                <input type="submit" value="Submit" />
               </form>
             </div>
           </div>

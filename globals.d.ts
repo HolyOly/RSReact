@@ -14,7 +14,7 @@ declare interface IIcon {
   color?: string;
 }
 
-declare interface IFormFields {
+declare interface IFormFieldsRef {
   inputName: React.RefObject<HTMLInputElement> | undefined;
   inputBirthday: React.RefObject<HTMLInputElement> | undefined;
   inputFile: React.RefObject<HTMLInputElement> | undefined;
@@ -22,4 +22,14 @@ declare interface IFormFields {
   inputMale: React.RefObject<HTMLInputElement> | undefined;
   inputFemale: React.RefObject<HTMLInputElement> | undefined;
   inputNotification: React.RefObject<HTMLInputElement> | undefined;
+}
+
+declare interface IFormFields {
+  inputName: string | undefined;
+  inputBirthday: string | undefined;
+  inputFile: string | undefined;
+  inputCountry: string | undefined;
+  inputMale: boolean | null | undefined;
+  inputFemale: boolean | null | undefined;
+  inputNotification: boolean | null | undefined;
 }

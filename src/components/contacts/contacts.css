@@ -19,10 +19,6 @@
   justify-content: space-evenly
 }
 
-.form {
-  max-width: 500px;
-}
-
 .contacts-img,
 .contacts-form {
   display: flex;
@@ -30,6 +26,17 @@
   justify-content: space-around;
 }
 
-.form-label {
-  display: block;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.form input,
+.form select {
+  margin-left: 20px;
 }
