@@ -143,16 +143,6 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   </label>
                 </div>
                 <label className="form-label">
-                  <input
-                    className="form-input_checkbox"
-                    type="checkbox"
-                    name=""
-                    id=""
-                    ref={this.fieldsRefs.inputNotification}
-                  />
-                  I want to receive notifications about promo and sales
-                </label>
-                <label className="form-label">
                   Choose profile picture
                   <input
                     type="file"
@@ -160,11 +150,30 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                     onChange={this.handleFixFilePath}
                     name=""
                     id="inputFile"
-                    accept="image/jpeg, image/png, image/jpg"
+                    accept="image/jpeg, image/png, image/jpg, image/*"
                     required
                   />
+                  <button
+                    type="button"
+                    className="upload-btn"
+                    onClick={() => this.fieldsRefs.inputFile?.current?.click()}
+                  >
+                    Select file
+                  </button>
                 </label>
-                <input type="submit" value="Submit" />
+                <label className="form-label">
+                  <input
+                    className="form-input_checkbox"
+                    type="checkbox"
+                    name=""
+                    id=""
+                    ref={this.fieldsRefs.inputNotification}
+                  />
+                  <span className="notification-rule-text">
+                    I want to receive notifications about promo and sales
+                  </span>
+                </label>
+                <input type="submit" value="Submit" className="submit-btn" />
               </form>
             </div>
           </div>
