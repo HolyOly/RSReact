@@ -13,6 +13,16 @@
   padding-bottom: 30px;
 }
 
+.card-img {
+  max-width: 330px;
+}
+
+.card-img_form {
+  min-width: 330px;
+  min-height: 300px;
+  max-height: 320px;
+}
+
 .card-title {
   font-weight: 700;
   font-size: 20px;
@@ -25,6 +35,12 @@
   font-size: 16px;
   line-height: 20px;
   color: var(--text_title);
+}
+
+.card-description_form {
+  align-self: flex-start;
+  line-height: 17px;
+  margin: auto 40px;
 }
 
 .card-like {

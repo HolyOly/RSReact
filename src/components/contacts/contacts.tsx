@@ -1,3 +1,4 @@
+import { Card } from '../card/card';
 import React from 'react';
 import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
@@ -191,6 +192,11 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                 <input type="submit" value="Submit" className="submit-btn" />
               </form>
             </div>
+          </div>
+          <div className="form-cards">
+            {this.state.cardsStore.map((card, index) => (
+              <Card cardData={card} key={index} />
+            ))}
           </div>
         </div>
       </div>

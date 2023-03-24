@@ -101,6 +101,14 @@ form .submit-btn:hover {
   background-color: var(--color_warning);
 }
 
+.form-cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px auto;
+  gap: 20px;
+  justify-content: space-evenly;
+}
+
 @media (min-width: 300px) and (max-width: 767px) {
   .contacts-layout {
     flex-direction: column;
