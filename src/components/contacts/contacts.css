@@ -71,6 +71,12 @@
   background-color: var(--color_primary_focus);
 }
 
+.checkbox-container {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
 .notification-rule-text {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -89,4 +95,23 @@ form .submit-btn {
 form .upload-btn:hover,
 form .submit-btn:hover {
   background-color: var(--color_primary_focus);
+}
+
+.empty {
+  background-color: var(--color_warning);
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .contacts-layout {
+    flex-direction: column;
+  }
+
+  .form {
+    margin: 30px auto;
+  }
+
+  .notification-rule-text {
+    text-align: left;
+    line-height: 20px;
+  }
 }

@@ -17,7 +17,7 @@ export function Home() {
       </div>
       <div className="cards cards-wrapper content-wrapper">
         {cardsData.map((card, index) => (
-          <Card {...card} key={index} />
+          <Card cardData={card} key={index} />
         ))}
       </div>
     </div>

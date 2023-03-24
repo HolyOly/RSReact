@@ -4,7 +4,8 @@ import img2 from '../assets/img/card_2.png';
 import img3 from '../assets/img/card_3.png';
 import img4 from '../assets/img/card_4.png';
 import img5 from '../assets/img/card_5.png';
-export const cardsData: ICard[] = [
+
+export const cardsData: IProductCard[] = [
   {
     src: img0,
     alt: 'img',

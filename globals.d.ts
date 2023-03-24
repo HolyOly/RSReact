@@ -1,9 +1,13 @@
-declare interface ICard {
+declare interface IProductCard {
   src: string;
   alt: string;
   title: string | undefined;
   description: string | undefined;
   like: boolean;
+}
+
+declare interface ICard {
+  cardData: IProductCard | IFormCardStore;
 }
 
 declare interface IIcon {
@@ -33,3 +37,16 @@ declare interface IFormFields {
   inputFemale: boolean | null | undefined;
   inputNotification: boolean | null | undefined;
 }
+
+declare interface IFormCardStore extends IFormFields {
+  fixedFilePath: string | ArrayBuffer | null;
+}
+
+declare interface IFormState {
+  fields: IFormFields;
+  fixedFilePath: string | ArrayBuffer | null;
+  cardsStore: IFormCardStore[];
+  isEmptyFileList: boolean;
+}
+
+declare type CardType = 'product' | 'form';

@@ -2,11 +2,6 @@ import React from 'react';
 import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
 
-interface IFormState {
-  fields: IFormFields;
-  fixedFilePath: string | ArrayBuffer | null;
-}
-
 export class Contacts extends React.Component<Record<string, never>, IFormState> {
   state: IFormState;
   fieldsRefs: IFormFieldsRef;
@@ -33,44 +28,64 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
         inputNotification: null,
       },
       fixedFilePath: null,
+      cardsStore: [],
+      isEmptyFileList: false,
     };
     this.handleFixFilePath = this.handleFixFilePath.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validation = this.validation.bind(this);
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const data = {
+      inputName: this.fieldsRefs.inputName?.current?.value,
+      inputBirthday: this.fieldsRefs.inputBirthday?.current?.value,
+      inputCountry: this.fieldsRefs.inputCountry?.current?.value,
+      inputMale: this.fieldsRefs.inputMale?.current?.checked,
+      inputFemale: this.fieldsRefs.inputFemale?.current?.checked,
+      inputNotification: this.fieldsRefs.inputNotification?.current?.checked,
+      inputFile: this.fieldsRefs.inputFile?.current?.name,
+    };
+
+    this.state.cardsStore.push({ ...data, fixedFilePath: this.state.fixedFilePath });
     this.setState({
-      fields: {
-        inputName: this.fieldsRefs.inputName?.current?.value,
-        inputBirthday: this.fieldsRefs.inputBirthday?.current?.value,
-        inputCountry: this.fieldsRefs.inputCountry?.current?.value,
-        inputMale: this.fieldsRefs.inputMale?.current?.checked,
-        inputFemale: this.fieldsRefs.inputFemale?.current?.checked,
-        inputNotification: this.fieldsRefs.inputNotification?.current?.checked,
-        inputFile: this.fieldsRefs.inputFile?.current?.name,
-      },
+      fields: data,
       fixedFilePath: this.state.fixedFilePath,
     });
   }
 
+  validation() {
+    this.fieldsRefs.inputFile?.current?.files?.length === 0
+      ? this.setState({ isEmptyFileList: true })
+      : this.setState({ isEmptyFileList: false });
+  }
+
   componentDidUpdate() {
-    console.log(this.state);
+    // this.validation();
+    console.log('update', this.state);
   }
 
   handleFixFilePath(e: { target: { files: FileList | null } }) {
     if (e.target.files) {
-      const files = e.target.files;
-      const reader = new FileReader();
-      reader.readAsDataURL(files[0]);
-      reader.onload = (e) => {
-        if (e.target) {
-          this.setState({ fixedFilePath: e.target.result });
-        } else {
-          this.setState({ fixedFilePath: null });
-        }
-      };
+      try {
+        const files = e.target.files;
+        const reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = (e) => {
+          if (e.target) {
+            this.setState({ fixedFilePath: e.target.result });
+          } else {
+            this.setState({ fixedFilePath: null });
+          }
+        };
+      } catch (error) {
+        this.validation();
+        console.warn('file fath failed');
+      }
     }
+    this.validation();
   }
 
   render() {
@@ -155,13 +170,13 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   />
                   <button
                     type="button"
-                    className="upload-btn"
+                    className={`upload-btn ${this.state.isEmptyFileList ? 'empty' : ''}`}
                     onClick={() => this.fieldsRefs.inputFile?.current?.click()}
                   >
                     Select file
                   </button>
                 </label>
-                <label className="form-label">
+                <label className="form-label checkbox-container">
                   <input
                     className="form-input_checkbox"
                     type="checkbox"
