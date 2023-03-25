@@ -54,7 +54,7 @@ declare interface IFormState {
   cardsStore: IFormCardStore[];
   warnings: IFormWarnings;
   isValid: boolean;
-  // isDisable: boolean;
+  submitStatus: 'success' | 'error' | 'pending';
 }
 
 declare type CardType = 'product' | 'form';

@@ -18,4 +18,5 @@ export const formStateInitial: IFormState = {
   cardsStore: [],
   isValid: false,
   warnings: warningsInitial,
+  submitStatus: 'pending',
 };

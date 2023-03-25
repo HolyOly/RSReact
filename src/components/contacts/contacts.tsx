@@ -4,6 +4,7 @@ import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
 import { formStateInitial, warningsInitial } from '../../data/initial_data';
 import { isValidDate, isValidFile, isValidName } from '../../utils/validation';
+import { Modal } from '../modal/modal';
 
 export class Contacts extends React.Component<Record<string, never>, IFormState> {
   state: IFormState;
@@ -51,6 +52,8 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
       fixedFilePath: this.state.fixedFilePath,
       cardsStore: [...this.state.cardsStore, { ...data, fixedFilePath: this.state.fixedFilePath }],
     });
+
+    this.successSubmission();
   }
 
   validation(data: IFormFields) {
@@ -100,6 +103,19 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
         });
       }
     }
+  }
+
+  successSubmission() {
+    this.setState({
+      submitStatus: 'success',
+    });
+    setTimeout(
+      () =>
+        this.setState({
+          submitStatus: 'pending',
+        }),
+      2000
+    );
   }
 
   render() {
@@ -222,6 +238,9 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
             ))}
           </div>
         </div>
+        {this.state.submitStatus === 'success' && (
+          <Modal mode="success" text="Your data has been successfully saved" />
+        )}
       </div>
     );
   }
