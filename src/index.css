@@ -10,11 +10,13 @@
   --color_primary_intensive: #499A18;
   --color_primary_light: #D6E7D2;
   --color_primary_focus: #c1e4b9;
+  --color_disabled: #adabaa;
   --text_color_primary: #636060;
   --text_color_btn: #474545;
   --text_color_dark: #000000;
   --color_item_bright: #E06733;
   --color_white_unchangeable: #FFFFFF;
+  --color_warning_intensive: rgba(255, 0, 4, 0.67);
   --color_warning: rgba(163, 43, 43, 0.402);
 
   --main_content_width: 1200px;

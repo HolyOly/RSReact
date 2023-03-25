@@ -30,15 +30,20 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 25px;
   max-width: 500px;
   justify-content: flex-start;
   align-content: flex-start;
 }
 
+.form label {
+  position: relative;
+}
+
 .form input,
 .form select,
-.upload-btn {
+.upload-btn,
+.submit-btn {
   background: var(--color_primary_light);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
@@ -94,11 +99,26 @@ form .submit-btn {
 
 form .upload-btn:hover,
 form .submit-btn:hover {
+  cursor: pointer;
   background-color: var(--color_primary_focus);
+}
+
+form .submit-btn:disabled {
+  background-color: var(--color_disabled);
+  cursor: default;
 }
 
 .empty {
   background-color: var(--color_warning);
+}
+
+.warning-message {
+  position: absolute;
+  display: block;
+  font-size: 13px;
+  color: var(--color_warning_intensive);
+  padding: 0;
+  margin: 0;
 }
 
 .form-cards {

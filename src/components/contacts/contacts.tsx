@@ -1,7 +1,9 @@
-import { Card } from '../card/card';
 import React from 'react';
+import { Card } from '../card/card';
 import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
+import { formStateInitial, warningsInitial } from '../../data/initial_data';
+import { isValidDate, isValidFile, isValidName } from '../../utils/validation';
 
 export class Contacts extends React.Component<Record<string, never>, IFormState> {
   state: IFormState;
@@ -18,54 +20,60 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
       inputNotification: React.createRef(),
       inputFemale: React.createRef(),
     };
-    this.state = {
-      fields: {
-        inputBirthday: '',
-        inputName: '',
-        inputFile: '',
-        inputCountry: '',
-        inputMale: null,
-        inputFemale: null,
-        inputNotification: null,
-      },
-      fixedFilePath: null,
-      cardsStore: [],
-      isEmptyFileList: false,
-    };
+    this.state = formStateInitial;
     this.handleFixFilePath = this.handleFixFilePath.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validation = this.validation.bind(this);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  handleSubmit(e: React.FormEvent<HTMLButtonElement> | React.ChangeEvent) {
     e.preventDefault();
 
     const data = {
-      inputName: this.fieldsRefs.inputName?.current?.value,
+      inputName: this.fieldsRefs.inputName?.current?.value.trim(),
       inputBirthday: this.fieldsRefs.inputBirthday?.current?.value,
       inputCountry: this.fieldsRefs.inputCountry?.current?.value,
       inputMale: this.fieldsRefs.inputMale?.current?.checked,
       inputFemale: this.fieldsRefs.inputFemale?.current?.checked,
       inputNotification: this.fieldsRefs.inputNotification?.current?.checked,
-      inputFile: this.fieldsRefs.inputFile?.current?.name,
+      inputFile: this.fieldsRefs.inputFile?.current?.value,
     };
 
-    this.state.cardsStore.push({ ...data, fixedFilePath: this.state.fixedFilePath });
+    if (!this.validation(data)) {
+      this.setState({ isValid: false });
+      return;
+    }
+
+    this.setState({ isValid: true });
+
     this.setState({
       fields: data,
       fixedFilePath: this.state.fixedFilePath,
     });
+    this.state.cardsStore.push({ ...data, fixedFilePath: this.state.fixedFilePath });
   }
 
-  validation() {
-    this.fieldsRefs.inputFile?.current?.files?.length === 0
-      ? this.setState({ isEmptyFileList: true })
-      : this.setState({ isEmptyFileList: false });
-  }
+  validation(data: IFormFields) {
+    this.setState({
+      warnings: {
+        inputBirthday: `${isValidDate(data.inputBirthday)}`,
+        inputName: isValidName(data.inputName),
+        inputFile: isValidFile(this.state.fixedFilePath, data.inputFile),
+      },
+    });
 
-  componentDidUpdate() {
-    // this.validation();
-    console.log('update', this.state);
+    if (
+      isValidName(data.inputName) ||
+      isValidDate(data.inputBirthday) ||
+      isValidFile(this.state.fixedFilePath, data.inputFile)
+    ) {
+      return false;
+    }
+
+    this.setState({
+      warnings: { ...warningsInitial },
+    });
+    return true;
   }
 
   handleFixFilePath(e: { target: { files: FileList | null } }) {
@@ -76,17 +84,22 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
         reader.readAsDataURL(files[0]);
         reader.onload = (e) => {
           if (e.target) {
-            this.setState({ fixedFilePath: e.target.result });
-          } else {
-            this.setState({ fixedFilePath: null });
+            this.setState({
+              fixedFilePath: e.target.result,
+              warnings: {
+                ...this.state.warnings,
+                inputFile: isValidFile(e.target.result),
+              },
+            });
           }
         };
       } catch (error) {
-        this.validation();
         console.warn('file fath failed');
+        this.setState({
+          fixedFilePath: null,
+        });
       }
     }
-    this.validation();
   }
 
   render() {
@@ -99,7 +112,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
               <img src={ContactImg} alt="Contacts" className="contacts-img" />
             </div>
             <div className="contacts-form">
-              <form className="form" onSubmit={(e) => this.handleSubmit(e)}>
+              <form className="form">
                 <label className="form-label">
                   Name:
                   <input
@@ -109,6 +122,9 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                     ref={this.fieldsRefs.inputName}
                     required
                   />
+                  {this.state.warnings.inputName && (
+                    <span className="warning-message">{this.state.warnings.inputName}</span>
+                  )}
                 </label>
                 <label className="form-label">
                   Birthday:
@@ -118,13 +134,15 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                     ref={this.fieldsRefs.inputBirthday}
                     required
                   />
+                  {this.state.warnings.inputBirthday && (
+                    <span className="warning-message">{this.state.warnings.inputBirthday}</span>
+                  )}
                 </label>
                 <label className="form-label">
                   Select country:
                   <select
                     className="form-input_list"
                     name="countries"
-                    id=""
                     ref={this.fieldsRefs.inputCountry}
                   >
                     <option value="Turkey">Turkey</option>
@@ -171,11 +189,14 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   />
                   <button
                     type="button"
-                    className={`upload-btn ${this.state.isEmptyFileList ? 'empty' : ''}`}
+                    className="upload-btn"
                     onClick={() => this.fieldsRefs.inputFile?.current?.click()}
                   >
                     Select file
                   </button>
+                  {this.state.warnings.inputFile && (
+                    <span className="warning-message">{this.state.warnings.inputFile}</span>
+                  )}
                 </label>
                 <label className="form-label checkbox-container">
                   <input
@@ -189,7 +210,9 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                     I want to receive notifications about promo and sales
                   </span>
                 </label>
-                <input type="submit" value="Submit" className="submit-btn" />
+                <button type="submit" className="submit-btn" onClick={(e) => this.handleSubmit(e)}>
+                  Submit
+                </button>
               </form>
             </div>
           </div>

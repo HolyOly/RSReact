@@ -42,11 +42,19 @@ declare interface IFormCardStore extends IFormFields {
   fixedFilePath: string | ArrayBuffer | null;
 }
 
+declare interface IFormWarnings {
+  inputBirthday: string;
+  inputName: string;
+  inputFile: string;
+}
+
 declare interface IFormState {
   fields: IFormFields;
   fixedFilePath: string | ArrayBuffer | null;
   cardsStore: IFormCardStore[];
-  isEmptyFileList: boolean;
+  warnings: IFormWarnings;
+  isValid: boolean;
+  // isDisable: boolean;
 }
 
 declare type CardType = 'product' | 'form';
