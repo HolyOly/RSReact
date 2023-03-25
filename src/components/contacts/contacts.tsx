@@ -49,14 +49,14 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
     this.setState({
       fields: data,
       fixedFilePath: this.state.fixedFilePath,
+      cardsStore: [...this.state.cardsStore, { ...data, fixedFilePath: this.state.fixedFilePath }],
     });
-    this.state.cardsStore.push({ ...data, fixedFilePath: this.state.fixedFilePath });
   }
 
   validation(data: IFormFields) {
     this.setState({
       warnings: {
-        inputBirthday: `${isValidDate(data.inputBirthday)}`,
+        inputBirthday: isValidDate(data.inputBirthday),
         inputName: isValidName(data.inputName),
         inputFile: isValidFile(this.state.fixedFilePath, data.inputFile),
       },
