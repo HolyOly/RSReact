@@ -56,6 +56,7 @@ declare interface IFormState {
   isValid: boolean;
   isDisabledSubmitButton: boolean;
   submitStatus: 'success' | 'error' | 'pending';
+  fileName: string;
 }
 
 declare type CardType = 'product' | 'form';

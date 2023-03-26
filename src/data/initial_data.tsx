@@ -20,4 +20,5 @@ export const formStateInitial: IFormState = {
   isDisabledSubmitButton: false,
   warnings: warningsInitial,
   submitStatus: 'pending',
+  fileName: '',
 };

@@ -3,7 +3,7 @@ import { Card } from '../card/card';
 import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
 import { formStateInitial, warningsInitial } from '../../data/initial_data';
-import { isValidDate, isValidFile, isValidName } from '../../utils/validation';
+import { getShortFileName, isValidDate, isValidFile, isValidName } from '../../utils/validation';
 import { Modal } from '../modal/modal';
 
 export class Contacts extends React.Component<Record<string, never>, IFormState> {
@@ -95,12 +95,13 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
         reader.onload = (e) => {
           this.setState({
             fixedFilePath: e.target?.result,
+            fileName: getShortFileName(file.name),
           });
         };
       } catch (error) {
-        console.warn('file fath failed');
         this.setState({
           fixedFilePath: null,
+          fileName: '',
         });
       }
     }
@@ -134,9 +135,9 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                 <label className="form-label">
                   Name:
                   <input
-                    className="form-input_text"
                     data-testid="input-name"
                     type="text"
+                    name="name"
                     ref={this.fieldsRefs.inputName}
                     required
                   />
@@ -146,23 +147,14 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                 </label>
                 <label className="form-label">
                   Birthday:
-                  <input
-                    className="form-input_date"
-                    type="date"
-                    ref={this.fieldsRefs.inputBirthday}
-                    required
-                  />
+                  <input type="date" ref={this.fieldsRefs.inputBirthday} name="birthday" required />
                   {this.state.warnings.inputBirthday && (
                     <span className="warning-message">{this.state.warnings.inputBirthday}</span>
                   )}
                 </label>
                 <label className="form-label">
                   Select country:
-                  <select
-                    className="form-input_list"
-                    name="countries"
-                    ref={this.fieldsRefs.inputCountry}
-                  >
+                  <select name="country" ref={this.fieldsRefs.inputCountry}>
                     <option value="Turkey">Turkey</option>
                     <option value="Montenegro">Montenegro</option>
                     <option value="New Zealand">New Zealand</option>
@@ -174,7 +166,6 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   Gender:
                   <label className="form-label">
                     <input
-                      className="form-input_radio"
                       type="radio"
                       name="gender"
                       value="Male"
@@ -185,7 +176,6 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   </label>
                   <label className="form-label">
                     <input
-                      className="form-input_radio"
                       type="radio"
                       name="gender"
                       value="Female"
@@ -200,8 +190,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                     type="file"
                     ref={this.fieldsRefs.inputFile}
                     onChange={this.handleFixFilePath}
-                    name=""
-                    id="inputFile"
+                    name="file"
                     accept="image/jpeg, image/png, image/jpg, image/*"
                     required
                   />
@@ -212,6 +201,15 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   >
                     Select file
                   </button>
+                  {this.state.fileName ? (
+                    <div className="file-name">
+                      selected:
+                      <br />
+                      {this.state.fileName}
+                    </div>
+                  ) : (
+                    ''
+                  )}
                   {this.state.warnings.inputFile && (
                     <span className="warning-message">{this.state.warnings.inputFile}</span>
                   )}

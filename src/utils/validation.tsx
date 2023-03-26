@@ -60,3 +60,16 @@ export function isValidFile(
 
   return '';
 }
+
+export function getFileExtension(fileName: string) {
+  const re = /(?:\.([^.]+))?$/;
+  const ext = (re.exec(fileName) as RegExpExecArray)[1];
+  return ext ? ext : '';
+}
+
+export function getShortFileName(fileName: string) {
+  if (fileName.length < 15) {
+    return fileName;
+  }
+  return fileName.substring(0, 7) + '...' + getFileExtension(fileName);
+}
