@@ -44,3 +44,10 @@
     max-width: 250px;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1219px) {
+  .about-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+}

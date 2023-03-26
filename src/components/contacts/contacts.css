@@ -26,6 +26,10 @@
   justify-content: space-around;
 }
 
+.contacts-img {
+  min-width: 400px;
+}
+
 
 .form {
   display: flex;
@@ -137,7 +141,7 @@ form .submit-btn:disabled {
 .form-cards {
   display: flex;
   flex-wrap: wrap;
-  margin: 30px auto;
+  margin: 40px auto;
   gap: 20px;
   justify-content: space-evenly;
 }
@@ -150,6 +154,28 @@ form .submit-btn:disabled {
   .form {
     min-width: 250px;
     margin: 30px auto;
+  }
+
+  .notification-rule-text {
+    text-align: left;
+    line-height: 20px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .contacts-layout {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .contacts-img {
+    max-width: 350px;
+  }
+
+  .form {
+    min-width: 300px;
+    max-width: 350px;
+    margin: 20px auto;
   }
 
   .notification-rule-text {

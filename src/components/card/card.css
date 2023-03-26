@@ -48,3 +48,11 @@
   bottom: 5px;
   right: 10px;
 }
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .card-description_form {
+    align-self: flex-start;
+    line-height: 15px;
+    margin: auto 20px;
+  }
+}

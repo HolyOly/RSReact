@@ -34,10 +34,6 @@ export class Contacts extends React.Component<IFormState, IFormState> {
     this.setState({ isDisabledSubmitButton: false });
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
   handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
     e.preventDefault();
 
