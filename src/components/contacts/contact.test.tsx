@@ -112,11 +112,6 @@ describe('Form', () => {
     }
   });
 
-  // test('test', async () => {
-  //   render(<Contacts {...testFormState} />);
-  //   expect(formStateInitial).toHaveClass('overlay');
-  // });
-
   it('test formStateInitial', () => {
     assert.equal(formStateInitial.warnings.inputName, '');
     assert.equal(formStateInitial.submitStatus, 'pending');

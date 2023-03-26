@@ -1,4 +1,4 @@
-import { describe, expect } from 'vitest';
+import { describe } from 'vitest';
 import {
   getFileExtension,
   hasNumber,
