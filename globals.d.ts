@@ -39,7 +39,7 @@ declare interface IFormFields {
 }
 
 declare interface IFormCardStore extends IFormFields {
-  fixedFilePath: string | ArrayBuffer | null;
+  fixedFilePath: string | ArrayBuffer | null | undefined;
 }
 
 declare interface IFormWarnings {
@@ -50,10 +50,11 @@ declare interface IFormWarnings {
 
 declare interface IFormState {
   fields: IFormFields;
-  fixedFilePath: string | ArrayBuffer | null;
+  fixedFilePath: string | ArrayBuffer | null | undefined;
   cardsStore: IFormCardStore[];
   warnings: IFormWarnings;
   isValid: boolean;
+  isDisabledSubmitButton: boolean;
   submitStatus: 'success' | 'error' | 'pending';
 }
 

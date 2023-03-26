@@ -9,6 +9,7 @@ import { Modal } from '../modal/modal';
 export class Contacts extends React.Component<Record<string, never>, IFormState> {
   state: IFormState;
   fieldsRefs: IFormFieldsRef;
+  formRef: React.RefObject<HTMLFormElement> | undefined;
 
   constructor(props: Record<string, never>) {
     super(props);
@@ -22,12 +23,18 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
       inputFemale: React.createRef(),
     };
     this.state = formStateInitial;
+    this.formRef = React.createRef();
+    this.handleChangeEvent = this.handleChangeEvent.bind(this);
     this.handleFixFilePath = this.handleFixFilePath.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validation = this.validation.bind(this);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLButtonElement> | React.ChangeEvent) {
+  handleChangeEvent() {
+    this.setState({ isDisabledSubmitButton: false });
+  }
+
+  handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
     e.preventDefault();
 
     const data = {
@@ -41,16 +48,16 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
     };
 
     if (!this.validation(data)) {
-      this.setState({ isValid: false });
+      this.setState({ isValid: false, isDisabledSubmitButton: true });
       return;
     }
-
-    this.setState({ isValid: true });
 
     this.setState({
       fields: data,
       fixedFilePath: this.state.fixedFilePath,
       cardsStore: [...this.state.cardsStore, { ...data, fixedFilePath: this.state.fixedFilePath }],
+      isValid: true,
+      isDisabledSubmitButton: false,
     });
 
     this.successSubmission();
@@ -82,19 +89,13 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
   handleFixFilePath(e: { target: { files: FileList | null } }) {
     if (e.target.files) {
       try {
-        const files = e.target.files;
+        const file = e.target.files[0];
         const reader = new FileReader();
-        reader.readAsDataURL(files[0]);
+        reader.readAsDataURL(file);
         reader.onload = (e) => {
-          if (e.target) {
-            this.setState({
-              fixedFilePath: e.target.result,
-              warnings: {
-                ...this.state.warnings,
-                inputFile: isValidFile(e.target.result),
-              },
-            });
-          }
+          this.setState({
+            fixedFilePath: e.target?.result,
+          });
         };
       } catch (error) {
         console.warn('file fath failed');
@@ -116,6 +117,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
         }),
       2000
     );
+    this.formRef?.current?.reset();
   }
 
   render() {
@@ -128,7 +130,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
               <img src={ContactImg} alt="Contacts" className="contacts-img" />
             </div>
             <div className="contacts-form">
-              <form className="form">
+              <form className="form" ref={this.formRef} onChange={this.handleChangeEvent}>
                 <label className="form-label">
                   Name:
                   <input
@@ -226,7 +228,12 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                     I want to receive notifications about promo and sales
                   </span>
                 </label>
-                <button type="submit" className="submit-btn" onClick={(e) => this.handleSubmit(e)}>
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  onClick={(e) => this.handleSubmit(e)}
+                  disabled={this.state.isDisabledSubmitButton ? true : false}
+                >
                   Submit
                 </button>
               </form>

@@ -17,6 +17,7 @@ export const formStateInitial: IFormState = {
   fixedFilePath: null,
   cardsStore: [],
   isValid: false,
+  isDisabledSubmitButton: false,
   warnings: warningsInitial,
   submitStatus: 'pending',
 };
