@@ -136,8 +136,8 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                 <label className="form-label">
                   Name:
                   <input
-                    data-testid="input-name"
                     type="text"
+                    data-testid="name-input"
                     name="name"
                     ref={this.fieldsRefs.inputName}
                     required
@@ -148,19 +148,43 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                 </label>
                 <label className="form-label">
                   Birthday:
-                  <input type="date" ref={this.fieldsRefs.inputBirthday} name="birthday" required />
+                  <input
+                    type="date"
+                    data-testid="date-input"
+                    placeholder="yyyy-mm-dd"
+                    name="birthday"
+                    min="1900-01-01"
+                    max="2100-12-31"
+                    ref={this.fieldsRefs.inputBirthday}
+                    required
+                  />
                   {this.state.warnings.inputBirthday && (
                     <span className="warning-message">{this.state.warnings.inputBirthday}</span>
                   )}
                 </label>
                 <label className="form-label">
                   Select country:
-                  <select name="country" ref={this.fieldsRefs.inputCountry}>
-                    <option value="Turkey">Turkey</option>
-                    <option value="Montenegro">Montenegro</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="Italy">Italy</option>
-                    <option value="Slovenia">Slovenia</option>
+                  <select
+                    name="country"
+                    data-testid="select-element"
+                    defaultValue="Turkey"
+                    ref={this.fieldsRefs.inputCountry}
+                  >
+                    <option value="Turkey" data-testid="select-option">
+                      Turkey
+                    </option>
+                    <option value="Montenegro" data-testid="select-option">
+                      Montenegro
+                    </option>
+                    <option value="New Zealand" data-testid="select-option">
+                      New Zealand
+                    </option>
+                    <option value="Italy" data-testid="select-option">
+                      Italy
+                    </option>
+                    <option value="Slovenia" data-testid="select-option">
+                      Slovenia
+                    </option>
                   </select>
                 </label>
                 <div>
@@ -168,6 +192,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   <label className="form-label">
                     <input
                       type="radio"
+                      data-testid="male-input"
                       name="gender"
                       value="Male"
                       ref={this.fieldsRefs.inputMale}
@@ -178,6 +203,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   <label className="form-label">
                     <input
                       type="radio"
+                      data-testid="female-input"
                       name="gender"
                       value="Female"
                       ref={this.fieldsRefs.inputFemale}
@@ -189,9 +215,10 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   Choose profile picture
                   <input
                     type="file"
+                    name="file"
+                    data-testid="file-input"
                     ref={this.fieldsRefs.inputFile}
                     onChange={this.handleFixFilePath}
-                    name="file"
                     accept="image/jpeg, image/png, image/jpg, image/*"
                     required
                   />
@@ -217,10 +244,10 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                 </label>
                 <label className="form-label checkbox-container">
                   <input
-                    className="form-input_checkbox"
                     type="checkbox"
-                    name=""
-                    id=""
+                    data-testid="checkbox-input"
+                    name="notification"
+                    className="form-input_checkbox"
                     ref={this.fieldsRefs.inputNotification}
                   />
                   <span className="notification-rule-text">

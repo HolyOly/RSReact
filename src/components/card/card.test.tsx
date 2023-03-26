@@ -6,7 +6,7 @@ import { cardsData } from '../../data/card_data';
 
 describe('Welcome image', () => {
   it('Render Card component', () => {
-    const { container } = render(<Card {...cardsData[0]} />);
+    const { container } = render(<Card cardData={cardsData[0]} />);
     expect((container.firstChild as Element).classList.contains('card')).toBe(true);
   });
 });
