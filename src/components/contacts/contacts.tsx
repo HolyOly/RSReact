@@ -6,12 +6,12 @@ import { formStateInitial, warningsInitial } from '../../data/initial_data';
 import { getShortFileName, isValidDate, isValidFile, isValidName } from '../../utils/validation';
 import { Modal } from '../modal/modal';
 
-export class Contacts extends React.Component<Record<string, never>, IFormState> {
+export class Contacts extends React.Component<IFormState, IFormState> {
   state: IFormState;
   fieldsRefs: IFormFieldsRef;
   formRef: React.RefObject<HTMLFormElement> | undefined;
 
-  constructor(props: Record<string, never>) {
+  constructor(props: IFormState) {
     super(props);
     this.fieldsRefs = {
       inputBirthday: React.createRef(),
@@ -32,6 +32,10 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
 
   handleChangeEvent() {
     this.setState({ isDisabledSubmitButton: false });
+  }
+
+  componentDidUpdate() {
+    console.log(this.state);
   }
 
   handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
@@ -216,7 +220,6 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   <input
                     type="file"
                     name="file"
-                    data-testid="file-input"
                     ref={this.fieldsRefs.inputFile}
                     onChange={this.handleFixFilePath}
                     accept="image/jpeg, image/png, image/jpg, image/*"
@@ -230,7 +233,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                     Select file
                   </button>
                   {this.state.fileName ? (
-                    <div className="file-name">
+                    <div className="file-name" data-testid="selectedInfo">
                       selected:
                       <br />
                       {this.state.fileName}
@@ -257,6 +260,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                 <button
                   type="submit"
                   className="submit-btn"
+                  data-testid="submit-btn-test"
                   onClick={(e) => this.handleSubmit(e)}
                   disabled={this.state.isDisabledSubmitButton ? true : false}
                 >

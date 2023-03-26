@@ -45,8 +45,8 @@ export function isValidDate(date: string | undefined) {
 }
 
 export function isValidFile(
-  point1: string | undefined | null | ArrayBuffer,
-  point2?: string | undefined | null | ArrayBuffer
+  point1: string | undefined | null | ArrayBuffer | undefined,
+  point2?: string | undefined | null | ArrayBuffer | undefined
 ) {
   if (point2 !== undefined) {
     if (!point1 || !point2) {

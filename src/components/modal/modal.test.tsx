@@ -3,18 +3,19 @@ import { render, screen } from '@testing-library/react';
 import { Modal } from './modal';
 import { describe, it, expect } from 'vitest';
 
-describe('Welcome image', () => {
-  it('Render Welcome component', () => {
+describe('Modal', () => {
+  it('Render Modal component', () => {
     const { container } = render(<Modal mode={'success'} text={''} />);
     expect(container.firstChild).toHaveClass('overlay');
   });
 
-  test('Render Welcome component', () => {
+  test('check for the presence of elements in Modal', () => {
     const title = 'Success';
     const text = 'your data is saved';
+
     render(<Modal mode={'success'} text={text} title={title} />);
-    const modalTitle = screen.getByText('Success');
-    const modalText = screen.getByText('your data is saved');
+    const modalTitle = screen.getByText(title);
+    const modalText = screen.getByText(text);
 
     expect(modalTitle).toBeInTheDocument();
     expect(modalText).toBeInTheDocument();
