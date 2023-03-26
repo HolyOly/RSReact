@@ -110,6 +110,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
   successSubmission() {
     this.setState({
       submitStatus: 'success',
+      fileName: '',
     });
     setTimeout(
       () =>
@@ -210,7 +211,7 @@ export class Contacts extends React.Component<Record<string, never>, IFormState>
                   ) : (
                     ''
                   )}
-                  {this.state.warnings.inputFile && (
+                  {this.state.warnings.inputFile && !this.state.fileName && (
                     <span className="warning-message">{this.state.warnings.inputFile}</span>
                   )}
                 </label>
