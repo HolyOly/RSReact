@@ -1,0 +1,53 @@
+.about-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color_white_unchangeable);
+  height: 666px;
+}
+
+.about-description,
+.about-img {
+  flex: 1 0 50%;
+}
+
+.about-img {
+  text-align: center;
+}
+
+.about-title {
+  font-family: 'Inika', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 52px;
+  max-width: 462px;
+  color: var(--color_primary_intensive);
+}
+
+.about-title_accent {
+  color: var(--color_item_bright);
+}
+
+.about-text {
+  line-height: 35px;
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .about-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .about-houseplant {
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1219px) {
+  .about-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+}

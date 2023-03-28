@@ -1,0 +1,13 @@
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .footer-content {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
