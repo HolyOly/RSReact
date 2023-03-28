@@ -140,7 +140,6 @@ export class Contacts extends React.Component<IFormState, IFormState> {
                     data-testid="name-input"
                     name="name"
                     ref={this.fieldsRefs.inputName}
-                    required
                   />
                   {this.state.warnings.inputName && (
                     <span className="warning-message">{this.state.warnings.inputName}</span>
@@ -153,10 +152,7 @@ export class Contacts extends React.Component<IFormState, IFormState> {
                     data-testid="date-input"
                     placeholder="yyyy-mm-dd"
                     name="birthday"
-                    min="1900-01-01"
-                    max="2100-12-31"
                     ref={this.fieldsRefs.inputBirthday}
-                    required
                   />
                   {this.state.warnings.inputBirthday && (
                     <span className="warning-message">{this.state.warnings.inputBirthday}</span>
@@ -219,7 +215,6 @@ export class Contacts extends React.Component<IFormState, IFormState> {
                     ref={this.fieldsRefs.inputFile}
                     onChange={this.handleFixFilePath}
                     accept="image/jpeg, image/png, image/jpg, image/*"
-                    required
                   />
                   <button
                     type="button"
