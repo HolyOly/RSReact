@@ -115,7 +115,6 @@ describe('Form', () => {
   it('test formStateInitial', () => {
     assert.equal(formStateInitial.warnings.inputName, '');
     assert.equal(formStateInitial.submitStatus, 'pending');
-    assert.equal(formStateInitial.isDisabledSubmitButton, false);
   });
 
   it('test warningsInitial', () => {

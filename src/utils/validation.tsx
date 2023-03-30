@@ -67,7 +67,10 @@ export function getFileExtension(fileName: string) {
   return ext ? ext : '';
 }
 
-export function getShortFileName(fileName: string) {
+export function getShortFileName(fileName: string | undefined | null) {
+  if (!fileName) {
+    return '';
+  }
   if (fileName.length < 15) {
     return fileName;
   }
