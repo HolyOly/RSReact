@@ -1,3 +1,5 @@
+import { defaultCountry } from '../components/contacts/constants';
+
 export function hasNumber(name: string) {
   return /\d/.test(name);
 }
@@ -39,6 +41,14 @@ export function isValidDate(date: string | undefined) {
 
   if (isFutureDate(date)) {
     return 'invalid date';
+  }
+
+  return '';
+}
+
+export function isValidLocation(country: string | undefined) {
+  if (!country || country === defaultCountry) {
+    return 'choose the country';
   }
 
   return '';

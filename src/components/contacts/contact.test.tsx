@@ -6,7 +6,7 @@ import { testFormState } from '../../data/test_data';
 import { Modal } from '../modal/modal';
 import { formStateInitial, warningsInitial } from '../../data/initial_data';
 import assert from 'assert';
-import { successMode } from './constants';
+import { defaultCountry, successMode } from './constants';
 
 describe('Form', () => {
   beforeEach(() => render(<Contacts {...testFormState} />));
@@ -60,6 +60,11 @@ describe('Form', () => {
     await userEvent.type(inputEl, '1996-12-04');
     const myTextAreaVal = (inputEl as HTMLInputElement).value;
     expect(myTextAreaVal.includes('1996-12-04')).toBe(true);
+  });
+
+  test('test default value in <select>', async () => {
+    expect((screen.getByText(defaultCountry) as HTMLOptionElement).selected).toBeTruthy();
+    expect((screen.getByText('Italy') as HTMLOptionElement).selected).toBeFalsy();
   });
 
   test('pass valid value to test select field', async () => {

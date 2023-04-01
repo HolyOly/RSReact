@@ -7,11 +7,12 @@ import {
   isValidDate,
   isValidFile,
   isValidGender,
+  isValidLocation,
   isValidName,
 } from '../../utils/validation';
 import { Modal } from '../modal/modal';
 import { handleFixFilePath } from '../../utils/form';
-import { successMode, successText } from './constants';
+import { defaultCountry, successMode, successText } from './constants';
 import './contacts.css';
 
 export function Contacts(props: IFormState) {
@@ -69,9 +70,10 @@ export function Contacts(props: IFormState) {
   };
 
   const validation = (data: IFormFields, path?: string) => {
-    const warningMessages = {
+    const warningMessages: IFormWarnings = {
       inputName: isValidName(data.inputName),
       inputBirthday: isValidDate(data.inputBirthday),
+      inputCountry: isValidLocation(data.inputCountry),
       inputGender: isValidGender(data.inputMale, data.inputFemale),
       inputNotification: isValidCheckboxTerm(data.inputNotification),
       inputFile: isValidFile(path, data.inputFile),
@@ -132,8 +134,8 @@ export function Contacts(props: IFormState) {
                 <select
                   name="country"
                   data-testid="select-element"
-                  defaultValue="Turkey"
                   ref={fieldsRefs.inputCountry}
+                  defaultValue={defaultCountry}
                 >
                   <option value="Turkey" data-testid="select-option">
                     Turkey
@@ -150,7 +152,11 @@ export function Contacts(props: IFormState) {
                   <option value="Slovenia" data-testid="select-option">
                     Slovenia
                   </option>
+                  <option value={defaultCountry} data-testid="select-option">
+                    {defaultCountry}
+                  </option>
                 </select>
+                {warn.inputCountry && <span className="warning-message">{warn.inputCountry}</span>}
               </label>
               <div>
                 Gender:

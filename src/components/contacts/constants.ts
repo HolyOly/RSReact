@@ -1,3 +1,5 @@
+export const defaultCountry = 'Choose a location';
+
 export const successMode = 'success';
 export const successText = 'Your data has been successfully saved';
 

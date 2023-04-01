@@ -62,6 +62,10 @@
   transition: .5s;
 }
 
+.form select {
+  height: 37px;
+}
+
 .form input[type="text"],
 .form input[type="date"],
 .form input[type="radio"],

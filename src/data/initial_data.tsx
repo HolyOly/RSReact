@@ -1,6 +1,7 @@
 export const warningsInitial: IFormWarnings = {
   inputName: '',
   inputBirthday: '',
+  inputCountry: '',
   inputGender: '',
   inputNotification: '',
   inputFile: '',

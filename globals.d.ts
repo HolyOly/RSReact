@@ -45,6 +45,7 @@ declare interface IFormCardStore extends IFormFields {
 declare interface IFormWarnings {
   inputName: string;
   inputBirthday: string;
+  inputCountry: string;
   inputGender: string;
   inputNotification: string;
   inputFile: string;
