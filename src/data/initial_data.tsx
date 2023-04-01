@@ -1,6 +1,8 @@
 export const warningsInitial: IFormWarnings = {
-  inputBirthday: '',
   inputName: '',
+  inputBirthday: '',
+  inputGender: '',
+  inputNotification: '',
   inputFile: '',
 };
 
@@ -9,9 +11,9 @@ export const cardsFieldsInitial: IFormFields = {
   inputName: '',
   inputFile: '',
   inputCountry: '',
-  inputMale: null,
-  inputFemale: null,
-  inputNotification: null,
+  inputMale: false,
+  inputFemale: false,
+  inputNotification: false,
 };
 
 export const formStateInitial: IFormState = {

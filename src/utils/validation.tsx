@@ -44,6 +44,22 @@ export function isValidDate(date: string | undefined) {
   return '';
 }
 
+export function isValidGender(male: boolean, female: boolean) {
+  if (!male && !female) {
+    return 'select gender please';
+  }
+
+  return '';
+}
+
+export function isValidCheckboxTerm(checked: boolean) {
+  if (!checked) {
+    return 'Prerequisite for receiving our services';
+  }
+
+  return '';
+}
+
 export function isValidFile(
   point1: string | undefined | null | ArrayBuffer | undefined,
   point2?: string | undefined | null | ArrayBuffer | undefined

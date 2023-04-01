@@ -33,9 +33,9 @@ declare interface IFormFields {
   inputBirthday: string | undefined;
   inputFile: string | undefined;
   inputCountry: string | undefined;
-  inputMale: boolean | null | undefined;
-  inputFemale: boolean | null | undefined;
-  inputNotification: boolean | null | undefined;
+  inputMale: boolean;
+  inputFemale: boolean;
+  inputNotification: boolean;
 }
 
 declare interface IFormCardStore extends IFormFields {
@@ -43,8 +43,10 @@ declare interface IFormCardStore extends IFormFields {
 }
 
 declare interface IFormWarnings {
-  inputBirthday: string;
   inputName: string;
+  inputBirthday: string;
+  inputGender: string;
+  inputNotification: string;
   inputFile: string;
 }
 

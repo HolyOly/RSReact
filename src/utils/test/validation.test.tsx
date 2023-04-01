@@ -7,10 +7,20 @@ import {
   isFutureDate,
   getShortFileName,
   isValidFile,
+  isValidGender,
+  isValidCheckboxTerm,
+  isValidName,
 } from '../validation';
 import assert from 'assert';
 
 describe('Validation functions', () => {
+  it('test isValidName', () => {
+    assert.equal(isValidName(undefined), 'field cannot be empty');
+    assert.equal(isValidName('Ja5ne'), "name mustn't contain numbers");
+    assert.equal(isValidName('j'), 'name must be of adequate length');
+    assert.equal(isValidName('Jane'), '');
+  });
+
   it('test hasNumber', () => {
     assert.equal(hasNumber('gjhs6'), true);
     assert.equal(hasNumber('Jane'), false);
@@ -33,6 +43,7 @@ describe('Validation functions', () => {
   });
 
   it('test getShortFileName', () => {
+    assert.equal(getShortFileName(undefined), '');
     assert.equal(getShortFileName('image.jpg'), 'image.jpg');
     assert.equal(getShortFileName('imageimageimageimage.png'), 'imageim...png');
     assert.equal(getShortFileName('im.age.jpg'), 'im.age.jpg');
@@ -46,5 +57,16 @@ describe('Validation functions', () => {
 
   it('test getFileExtension', () => {
     assert.equal(getFileExtension('thebestimage.tsx'), 'tsx');
+  });
+
+  it('test isValidGender', () => {
+    assert.equal(isValidGender(false, false), 'select gender please');
+    assert.equal(isValidGender(true, false), '');
+    assert.equal(isValidGender(false, true), '');
+  });
+
+  it('test isValidCheckboxTerm', () => {
+    assert.equal(isValidCheckboxTerm(false), 'Prerequisite for receiving our services');
+    assert.equal(isValidCheckboxTerm(true), '');
   });
 });

@@ -18,6 +18,6 @@
   color: var(--text_color_dark);
 }
 
-.links-item.active-path {
+.links-item.active {
   color: var(--color_item_bright);
 }

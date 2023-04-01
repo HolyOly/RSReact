@@ -3,14 +3,19 @@ import { Card } from '../card/card';
 import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
 import { warningsInitial } from '../../data/initial_data';
-import { isValidDate, isValidFile, isValidName } from '../../utils/validation';
+import {
+  isValidCheckboxTerm,
+  isValidDate,
+  isValidFile,
+  isValidGender,
+  isValidName,
+} from '../../utils/validation';
 import { Modal } from '../modal/modal';
 
 export function Contacts(props: IFormState) {
   const [form, setStateForm] = useState(props);
   const [warn, setWarn] = useState(warningsInitial);
   const [cards, setCardStore] = useState<IFormCardStore[]>([]);
-  const [photoPath, setPhotoPath] = useState<string | null | undefined>('');
 
   const fieldsRefs: IFormFieldsRef | undefined = {
     inputBirthday: React.createRef(),
@@ -23,14 +28,14 @@ export function Contacts(props: IFormState) {
   };
   const formRef: React.RefObject<HTMLFormElement> = React.createRef();
 
-  const getData = () => {
+  const getData = (): IFormFields => {
     const data = {
       inputName: fieldsRefs.inputName?.current?.value.trim(),
       inputBirthday: fieldsRefs.inputBirthday?.current?.value,
       inputCountry: fieldsRefs.inputCountry?.current?.value,
-      inputMale: fieldsRefs.inputMale?.current?.checked,
-      inputFemale: fieldsRefs.inputFemale?.current?.checked,
-      inputNotification: fieldsRefs.inputNotification?.current?.checked,
+      inputMale: fieldsRefs.inputMale?.current?.checked as boolean,
+      inputFemale: fieldsRefs.inputFemale?.current?.checked as boolean,
+      inputNotification: fieldsRefs.inputNotification?.current?.checked as boolean,
       inputFile: fieldsRefs.inputFile?.current?.value,
     };
     return data;
@@ -38,37 +43,41 @@ export function Contacts(props: IFormState) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleFixFilePath(fieldsRefs.inputFile?.current?.files).then((r: string | null | undefined) => {
-      setPhotoPath(r);
-      const data = getData();
+    handleFixFilePath(fieldsRefs.inputFile?.current?.files).then(
+      (path: string | null | undefined) => {
+        const data = getData();
 
-      if (!validation(data, r as string)) {
-        console.log('invalid');
-        setStateForm({ ...form, isValid: false });
-        return;
+        if (!validation(data, path as string)) {
+          setStateForm({ ...form, isValid: false });
+          return;
+        }
+
+        setCardStore([...cards, { ...data, fixedFilePath: path as string }]);
+        setStateForm({
+          ...form,
+          isValid: true,
+        });
+
+        successSubmission();
       }
-
-      setCardStore([{ ...data, fixedFilePath: photoPath as string }]);
-      setStateForm({
-        ...form,
-        isValid: true,
-      });
-
-      successSubmission();
-    });
+    );
   };
 
   const validation = (data: IFormFields, path?: string) => {
     setWarn({
-      inputBirthday: isValidDate(data.inputBirthday),
       inputName: isValidName(data.inputName),
+      inputBirthday: isValidDate(data.inputBirthday),
+      inputGender: isValidGender(data.inputMale, data.inputFemale),
+      inputNotification: isValidCheckboxTerm(data.inputNotification),
       inputFile: isValidFile(path, data.inputFile),
     });
 
     if (
       isValidName(data.inputName) ||
       isValidDate(data.inputBirthday) ||
-      isValidFile(path, data.inputFile)
+      isValidFile(path, data.inputFile) ||
+      isValidGender(data.inputMale, data.inputFemale) ||
+      isValidCheckboxTerm(data.inputNotification)
     ) {
       return false;
     }
@@ -88,11 +97,9 @@ export function Contacts(props: IFormState) {
         const file = files[0];
         reader.readAsDataURL(file);
         reader.onload = (e) => {
-          setPhotoPath(e.target?.result as string);
           resolve(e.target?.result as string);
         };
       } else {
-        setPhotoPath('');
         resolve('');
       }
     });
@@ -103,14 +110,7 @@ export function Contacts(props: IFormState) {
       ...form,
       submitStatus: 'success',
     });
-    setTimeout(
-      () =>
-        setStateForm({
-          ...form,
-          submitStatus: 'pending',
-        }),
-      2000
-    );
+    setTimeout(() => setStateForm({ ...props }), 2000);
     formRef?.current?.reset();
   };
 
@@ -181,7 +181,6 @@ export function Contacts(props: IFormState) {
                     name="gender"
                     value="Male"
                     ref={fieldsRefs.inputMale}
-                    defaultChecked
                   />
                   Male
                 </label>
@@ -195,6 +194,7 @@ export function Contacts(props: IFormState) {
                   />
                   Female
                 </label>
+                {warn.inputGender && <span className="warning-message">{warn.inputGender}</span>}
               </div>
               <label className="form-label">
                 Choose profile picture
@@ -221,9 +221,10 @@ export function Contacts(props: IFormState) {
                   className="form-input_checkbox"
                   ref={fieldsRefs.inputNotification}
                 />
-                <span className="notification-rule-text">
-                  I want to receive notifications about promo and sales
-                </span>
+                <span className="notification-rule-text">I accept terms of use</span>
+                {warn.inputNotification && (
+                  <span className="warning-message terms">{warn.inputNotification}</span>
+                )}
               </label>
               <button
                 type="submit"

@@ -138,6 +138,10 @@ form .submit-btn:disabled {
   margin: 0;
 }
 
+.terms {
+  top: 25px;
+}
+
 .form-cards {
   display: flex;
   flex-wrap: wrap;
