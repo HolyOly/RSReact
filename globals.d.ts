@@ -36,13 +36,11 @@ declare interface IFormFields {
   inputMale: boolean | null | undefined;
   inputFemale: boolean | null | undefined;
   inputNotification: boolean | null | undefined;
-  fixedFilePath: string | ArrayBuffer | null | undefined;
-  fileName: string | undefined | null | undefined;
+  // fixedFilePath: string | ArrayBuffer | null | undefined;
 }
 
 declare interface IFormCardStore extends IFormFields {
-  fixedFilePath: string | ArrayBuffer | null | undefined;
-  fileName: string;
+  fixedFilePath: string | null | undefined;
 }
 
 declare interface IFormWarnings {
@@ -52,13 +50,8 @@ declare interface IFormWarnings {
 }
 
 declare interface IFormState {
-  // fields: IFormFields;
-  // fixedFilePath: string | ArrayBuffer | null | undefined;
-  // cardsStore: IFormCardStore[];
-  // warnings: IFormWarnings;
   isValid: boolean;
   submitStatus: 'success' | 'error' | 'pending';
-  // fileName: string;
 }
 
 declare type CardType = 'product' | 'form';

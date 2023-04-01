@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { Card } from '../card/card';
 import ContactImg from '../../assets/img/contacts.png';
 import './contacts.css';
-import { cardsFieldsInitial, formStateInitial, warningsInitial } from '../../data/initial_data';
-import { getShortFileName, isValidDate, isValidFile, isValidName } from '../../utils/validation';
+import { warningsInitial } from '../../data/initial_data';
+import { isValidDate, isValidFile, isValidName } from '../../utils/validation';
 import { Modal } from '../modal/modal';
 
 export function Contacts(props: IFormState) {
-  const [stateForm, setStateForm] = useState(formStateInitial);
-  const [stateFields, setFields] = useState(cardsFieldsInitial);
-  const [stateWarn, setWarn] = useState(warningsInitial);
-  const [cards, setCardStore] = useState([{ ...cardsFieldsInitial, fixedFilePath: '' }]);
+  const [form, setStateForm] = useState(props);
+  const [warn, setWarn] = useState(warningsInitial);
+  const [cards, setCardStore] = useState<IFormCardStore[]>([]);
+  const [photoPath, setPhotoPath] = useState<string | null | undefined>('');
+
   const fieldsRefs: IFormFieldsRef | undefined = {
     inputBirthday: React.createRef(),
     inputName: React.createRef(),
@@ -23,7 +24,7 @@ export function Contacts(props: IFormState) {
   const formRef: React.RefObject<HTMLFormElement> = React.createRef();
 
   const getData = () => {
-    return {
+    const data = {
       inputName: fieldsRefs.inputName?.current?.value.trim(),
       inputBirthday: fieldsRefs.inputBirthday?.current?.value,
       inputCountry: fieldsRefs.inputCountry?.current?.value,
@@ -31,49 +32,43 @@ export function Contacts(props: IFormState) {
       inputFemale: fieldsRefs.inputFemale?.current?.checked,
       inputNotification: fieldsRefs.inputNotification?.current?.checked,
       inputFile: fieldsRefs.inputFile?.current?.value,
-      fileName: getShortFileName((fieldsRefs.inputFile?.current?.files as FileList)[0].name),
-      fixedFilePath: handleFixFilePath(fieldsRefs.inputFile?.current?.files),
     };
+    return data;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    handleFixFilePath(fieldsRefs.inputFile?.current?.files).then((r: string | null | undefined) => {
+      setPhotoPath(r);
+      const data = getData();
 
-    console.log('data', getData());
+      if (!validation(data, r as string)) {
+        console.log('invalid');
+        setStateForm({ ...form, isValid: false });
+        return;
+      }
 
-    if (!validation(getData())) {
-      console.log('invalid');
-      setStateForm({ ...stateForm, isValid: false });
-      return;
-    }
+      setCardStore([{ ...data, fixedFilePath: photoPath as string }]);
+      setStateForm({
+        ...form,
+        isValid: true,
+      });
 
-    setFields(getData());
-    setCardStore([
-      { ...getData(), fixedFilePath: handleFixFilePath(fieldsRefs.inputFile?.current?.files) },
-    ]);
-    setStateForm({
-      ...stateForm,
-      isValid: true,
+      successSubmission();
     });
-
-    console.log('cards', cards);
-
-    console.log('state', stateForm);
-
-    successSubmission();
   };
 
-  const validation = (data: IFormFields) => {
+  const validation = (data: IFormFields, path?: string) => {
     setWarn({
       inputBirthday: isValidDate(data.inputBirthday),
       inputName: isValidName(data.inputName),
-      inputFile: isValidFile(data.fixedFilePath, data.inputFile),
+      inputFile: isValidFile(path, data.inputFile),
     });
 
     if (
       isValidName(data.inputName) ||
       isValidDate(data.inputBirthday) ||
-      isValidFile(data.fixedFilePath, data.inputFile)
+      isValidFile(path, data.inputFile)
     ) {
       return false;
     }
@@ -84,31 +79,34 @@ export function Contacts(props: IFormState) {
     return true;
   };
 
-  const handleFixFilePath = (files: FileList | null | undefined) => {
-    if (files) {
-      try {
+  const handleFixFilePath = async (
+    files: FileList | null | undefined
+  ): Promise<string | null | undefined> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      if (files && files.length > 0) {
         const file = files[0];
-        const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = (e) => {
-          return e.target?.result;
+          setPhotoPath(e.target?.result as string);
+          resolve(e.target?.result as string);
         };
-      } catch (error) {
-        // TODO
+      } else {
+        setPhotoPath('');
+        resolve('');
       }
-    }
-    return '';
+    });
   };
 
   const successSubmission = () => {
     setStateForm({
-      ...stateForm,
+      ...form,
       submitStatus: 'success',
     });
     setTimeout(
       () =>
         setStateForm({
-          ...stateForm,
+          ...form,
           submitStatus: 'pending',
         }),
       2000
@@ -125,7 +123,7 @@ export function Contacts(props: IFormState) {
             <img src={ContactImg} alt="Contacts" className="contacts-img" />
           </div>
           <div className="contacts-form">
-            <form className="form" ref={formRef} /* onChange={handleChangeEvent} */>
+            <form className="form" ref={formRef}>
               <label className="form-label">
                 Name:
                 <input
@@ -134,9 +132,7 @@ export function Contacts(props: IFormState) {
                   name="name"
                   ref={fieldsRefs.inputName}
                 />
-                {stateWarn.inputName && (
-                  <span className="warning-message">{stateWarn.inputName}</span>
-                )}
+                {warn.inputName && <span className="warning-message">{warn.inputName}</span>}
               </label>
               <label className="form-label">
                 Birthday:
@@ -147,8 +143,8 @@ export function Contacts(props: IFormState) {
                   name="birthday"
                   ref={fieldsRefs.inputBirthday}
                 />
-                {stateWarn.inputBirthday && (
-                  <span className="warning-message">{stateWarn.inputBirthday}</span>
+                {warn.inputBirthday && (
+                  <span className="warning-message">{warn.inputBirthday}</span>
                 )}
               </label>
               <label className="form-label">
@@ -206,7 +202,6 @@ export function Contacts(props: IFormState) {
                   type="file"
                   name="file"
                   ref={fieldsRefs.inputFile}
-                  // onChange={handleFixFilePath}
                   accept="image/jpeg, image/png, image/jpg, image/*"
                 />
                 <button
@@ -216,18 +211,7 @@ export function Contacts(props: IFormState) {
                 >
                   Select file
                 </button>
-                {stateFields.fileName ? (
-                  <div className="file-name" data-testid="selectedInfo">
-                    selected:
-                    <br />
-                    {stateFields.fileName}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {stateWarn.inputFile && !stateFields.fileName && (
-                  <span className="warning-message">{stateWarn.inputFile}</span>
-                )}
+                {warn.inputFile && <span className="warning-message">{warn.inputFile}</span>}
               </label>
               <label className="form-label checkbox-container">
                 <input
@@ -258,7 +242,7 @@ export function Contacts(props: IFormState) {
           ))}
         </div>
       </div>
-      {stateForm.submitStatus === 'success' && (
+      {form.submitStatus === 'success' && (
         <Modal mode="success" text="Your data has been successfully saved" />
       )}
     </div>

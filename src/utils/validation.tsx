@@ -48,10 +48,8 @@ export function isValidFile(
   point1: string | undefined | null | ArrayBuffer | undefined,
   point2?: string | undefined | null | ArrayBuffer | undefined
 ) {
-  if (point2 !== undefined) {
-    if (!point1 || !point2) {
-      return 'file not selected';
-    }
+  if (point2 !== undefined && (!point1 || !point2)) {
+    return 'file not selected';
   } else {
     if (!point1) {
       return 'file not selected';

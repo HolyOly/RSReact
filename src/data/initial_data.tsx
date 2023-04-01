@@ -12,8 +12,6 @@ export const cardsFieldsInitial: IFormFields = {
   inputMale: null,
   inputFemale: null,
   inputNotification: null,
-  fixedFilePath: null,
-  fileName: '',
 };
 
 export const formStateInitial: IFormState = {
