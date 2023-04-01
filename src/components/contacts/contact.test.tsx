@@ -6,6 +6,7 @@ import { testFormState } from '../../data/test_data';
 import { Modal } from '../modal/modal';
 import { formStateInitial, warningsInitial } from '../../data/initial_data';
 import assert from 'assert';
+import { successMode } from './constants';
 
 describe('Form', () => {
   beforeEach(() => render(<Contacts {...testFormState} />));
@@ -88,8 +89,8 @@ describe('Form', () => {
   });
 
   test('test', async () => {
-    if (testFormState.submitStatus === 'success') {
-      const { container } = render(<Modal mode={'success'} text={''} />);
+    if (testFormState.submitStatus === successMode) {
+      const { container } = render(<Modal mode={successMode} text={''} />);
       expect(container.firstChild).toHaveClass('overlay');
     }
   });

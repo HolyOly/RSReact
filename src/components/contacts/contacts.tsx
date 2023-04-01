@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card } from '../card/card';
 import ContactImg from '../../assets/img/contacts.png';
-import './contacts.css';
 import { warningsInitial } from '../../data/initial_data';
 import {
   isValidCheckboxTerm,
@@ -11,6 +10,9 @@ import {
   isValidName,
 } from '../../utils/validation';
 import { Modal } from '../modal/modal';
+import { handleFixFilePath } from '../../utils/form';
+import { successMode, successText } from './constants';
+import './contacts.css';
 
 export function Contacts(props: IFormState) {
   const [form, setStateForm] = useState(props);
@@ -57,6 +59,9 @@ export function Contacts(props: IFormState) {
           ...form,
           isValid: true,
         });
+        setWarn({
+          ...warningsInitial,
+        });
 
         successSubmission();
       }
@@ -64,45 +69,20 @@ export function Contacts(props: IFormState) {
   };
 
   const validation = (data: IFormFields, path?: string) => {
-    setWarn({
+    const warningMessages = {
       inputName: isValidName(data.inputName),
       inputBirthday: isValidDate(data.inputBirthday),
       inputGender: isValidGender(data.inputMale, data.inputFemale),
       inputNotification: isValidCheckboxTerm(data.inputNotification),
       inputFile: isValidFile(path, data.inputFile),
-    });
+    };
+    setWarn(warningMessages);
 
-    if (
-      isValidName(data.inputName) ||
-      isValidDate(data.inputBirthday) ||
-      isValidFile(path, data.inputFile) ||
-      isValidGender(data.inputMale, data.inputFemale) ||
-      isValidCheckboxTerm(data.inputNotification)
-    ) {
+    // Checking if there are no warnings
+    if (Object.values(warningMessages).filter((val) => val !== '').length > 0) {
       return false;
     }
-
-    setWarn({
-      ...warningsInitial,
-    });
     return true;
-  };
-
-  const handleFixFilePath = async (
-    files: FileList | null | undefined
-  ): Promise<string | null | undefined> => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      if (files && files.length > 0) {
-        const file = files[0];
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-          resolve(e.target?.result as string);
-        };
-      } else {
-        resolve('');
-      }
-    });
   };
 
   const successSubmission = () => {
@@ -243,9 +223,7 @@ export function Contacts(props: IFormState) {
           ))}
         </div>
       </div>
-      {form.submitStatus === 'success' && (
-        <Modal mode="success" text="Your data has been successfully saved" />
-      )}
+      {form.submitStatus === successMode && <Modal mode={successMode} text={successText} />}
     </div>
   );
 }
