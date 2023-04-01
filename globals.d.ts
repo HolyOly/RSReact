@@ -7,7 +7,7 @@ declare interface IProductCard {
 }
 
 declare interface ICard {
-  cardData: IProductCard | IFormFields;
+  cardData: IProductCard | IFormCardStore;
 }
 
 declare interface IIcon {
@@ -36,7 +36,6 @@ declare interface IFormFields {
   inputMale: boolean | null | undefined;
   inputFemale: boolean | null | undefined;
   inputNotification: boolean | null | undefined;
-  // fixedFilePath: string | ArrayBuffer | null | undefined;
 }
 
 declare interface IFormCardStore extends IFormFields {

@@ -1,50 +1,32 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import SearchSvg from '../../assets/svg/search.svg';
 import './search.css';
 
-export class Search extends React.Component {
-  state = { query: '', previousQuery: '' };
+export function Search() {
+  const [value, setValue] = useState('');
 
-  changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ query: e.target.value });
-  };
+  // const handleLocalStolageValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   localStorage.setItem('searchQuery', e.target?.value);
+  // };
 
-  // get value from localstorage
-  componentDidMount() {
-    if (localStorage.getItem('searchQuery')) {
-      this.setState({ previousQuery: localStorage.getItem('searchQuery') });
-    }
-  }
-
-  // save value to localstorage
-  componentWillUnmount() {
-    localStorage.setItem('searchQuery', this.state.query);
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="search-wrapper">
-          <div className="search__logo">
-            <SearchSvg></SearchSvg>
-          </div>
-          <input
-            className="search__input"
-            autoComplete="off"
-            type="search"
-            name="search"
-            placeholder="search"
-            id="searchInput"
-            onChange={this.changeSearchValue}
-            data-testid="search-input-element"
-          />
+  return (
+    <div>
+      <div className="search-wrapper">
+        <div className="search__logo">
+          <SearchSvg></SearchSvg>
         </div>
-        {this.state.previousQuery && (
-          <div className="storage-value ordinary-text">
-            From localStorage: {this.state.previousQuery}
-          </div>
-        )}
+        <input
+          className="search__input"
+          autoComplete="off"
+          type="search"
+          name="search"
+          placeholder="search"
+          id="searchInput"
+          onChange={(e) => setValue(e.target?.value)}
+          data-testid="search-input-element"
+        />
       </div>
-    );
-  }
+      {value && <div className="storage-value ordinary-text">From localStorage: {value}</div>}
+    </div>
+  );
 }
