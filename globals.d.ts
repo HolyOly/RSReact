@@ -7,7 +7,7 @@ declare interface IProductCard {
 }
 
 declare interface ICard {
-  cardData: IProductCard | IFormCardStore;
+  cardData: IProductCard | IShortForm;
 }
 
 declare interface IIcon {
@@ -36,6 +36,28 @@ declare interface IFormFields {
   inputMale: boolean;
   inputFemale: boolean;
   inputNotification: boolean;
+}
+
+declare interface IForm1 {
+  inputName: string;
+  inputBirthday: string;
+  inputFile?: FileList | null;
+  inputCountry: string;
+  inputGender: string;
+  inputNotification: string;
+}
+
+declare interface IShortForm extends IPath {
+  name: string;
+  birthday: string;
+  file?: FileList | null;
+  country: string;
+  gender: string;
+  terms: string;
+}
+
+declare interface IPath {
+  fixedFilePath: string | null | undefined;
 }
 
 declare interface IFormCardStore extends IFormFields {

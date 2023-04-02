@@ -12,6 +12,7 @@ import {
   isValidName,
 } from '../validation';
 import assert from 'assert';
+import { handleFixFilePath } from '../../utils/form';
 
 describe('Validation functions', () => {
   it('test isValidName', () => {
@@ -68,5 +69,10 @@ describe('Validation functions', () => {
   it('test isValidCheckboxTerm', () => {
     assert.equal(isValidCheckboxTerm(false), 'Prerequisite for receiving our services');
     assert.equal(isValidCheckboxTerm(true), '');
+  });
+
+  it('test isValidCheckboxTerm', () => {
+    expect(handleFixFilePath(null)).resolves.toBe('');
+    expect(handleFixFilePath(undefined)).resolves.toBe('');
   });
 });

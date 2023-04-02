@@ -1,90 +1,82 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card } from '../card/card';
 import ContactImg from '../../assets/img/contacts.png';
-import { warningsInitial } from '../../data/initial_data';
-import {
-  isValidCheckboxTerm,
-  isValidDate,
-  isValidFile,
-  isValidGender,
-  isValidLocation,
-  isValidName,
-} from '../../utils/validation';
+import { cardsFieldsInitial } from '../../data/initial_data';
+
 import { Modal } from '../modal/modal';
 import { handleFixFilePath } from '../../utils/form';
 import { defaultCountry, successMode, successText } from './constants';
 import './contacts.css';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { hasNumber, isFutureDate } from '../../utils/validation';
+
+const schema = yup
+  .object({
+    name: yup
+      .string()
+      .required()
+      .min(3)
+      .max(30)
+      .test('is digit', "name mustn't contain numbers", (value) => {
+        return hasNumber(value) ? false : true;
+      }),
+    birthday: yup
+      .string()
+      .required()
+      .test('is future date', 'birthday cannot be in the future', (value) => {
+        return isFutureDate(value) ? false : true;
+      }),
+    country: yup
+      .string()
+      .required()
+      .test('is country', 'choose the country', (value) => {
+        return value === defaultCountry ? false : true;
+      }),
+    gender: yup.string().required(),
+    terms: yup.string().required(),
+    file: yup
+      .mixed<FileList>()
+      .test('is file', 'file not selected', (value: FileList | null | undefined) => {
+        return value && value.length > 0 ? true : false;
+      }),
+  })
+  .required();
+
+export type FormData = yup.InferType<typeof schema>;
+export interface ICardStore extends FormData, IPath {}
 
 export function Contacts(props: IFormState) {
   const [form, setStateForm] = useState(props);
-  const [warn, setWarn] = useState(warningsInitial);
-  const [cards, setCardStore] = useState<IFormCardStore[]>([]);
+  const [cards, setCardStore] = useState<ICardStore[]>([]);
 
-  const fieldsRefs: IFormFieldsRef | undefined = {
-    inputBirthday: React.createRef(),
-    inputName: React.createRef(),
-    inputFile: React.createRef(),
-    inputCountry: React.createRef(),
-    inputMale: React.createRef(),
-    inputNotification: React.createRef(),
-    inputFemale: React.createRef(),
-  };
-  const formRef: React.RefObject<HTMLFormElement> = React.createRef();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    resetField,
+    formState,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+    defaultValues: cardsFieldsInitial,
+  });
 
-  const getData = (): IFormFields => {
-    const data = {
-      inputName: fieldsRefs.inputName?.current?.value.trim(),
-      inputBirthday: fieldsRefs.inputBirthday?.current?.value,
-      inputCountry: fieldsRefs.inputCountry?.current?.value,
-      inputMale: fieldsRefs.inputMale?.current?.checked as boolean,
-      inputFemale: fieldsRefs.inputFemale?.current?.checked as boolean,
-      inputNotification: fieldsRefs.inputNotification?.current?.checked as boolean,
-      inputFile: fieldsRefs.inputFile?.current?.value,
-    };
-    return data;
-  };
+  const fileInput = useRef<HTMLInputElement | null>(null);
+  const { ref, ...rest } = register('file');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    handleFixFilePath(fieldsRefs.inputFile?.current?.files).then(
-      (path: string | null | undefined) => {
-        const data = getData();
-
-        if (!validation(data, path as string)) {
-          setStateForm({ ...form, isValid: false });
-          return;
-        }
-
-        setCardStore([...cards, { ...data, fixedFilePath: path as string }]);
-        setStateForm({
-          ...form,
-          isValid: true,
-        });
-        setWarn({
-          ...warningsInitial,
-        });
-
-        successSubmission();
-      }
-    );
-  };
-
-  const validation = (data: IFormFields, path?: string) => {
-    const warningMessages: IFormWarnings = {
-      inputName: isValidName(data.inputName),
-      inputBirthday: isValidDate(data.inputBirthday),
-      inputCountry: isValidLocation(data.inputCountry),
-      inputGender: isValidGender(data.inputMale, data.inputFemale),
-      inputNotification: isValidCheckboxTerm(data.inputNotification),
-      inputFile: isValidFile(path, data.inputFile),
-    };
-    setWarn(warningMessages);
-
-    // Checking if there are no warnings
-    if (Object.values(warningMessages).filter((val) => val !== '').length > 0) {
-      return false;
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ ...cardsFieldsInitial, file: undefined });
     }
-    return true;
+  }, [formState, isSubmitSuccessful, reset, resetField]);
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    handleFixFilePath(data.file).then((path: string | null | undefined) => {
+      setCardStore([...cards, { ...data, fixedFilePath: path as string }]);
+      successSubmission();
+    });
   };
 
   const successSubmission = () => {
@@ -93,7 +85,7 @@ export function Contacts(props: IFormState) {
       submitStatus: 'success',
     });
     setTimeout(() => setStateForm({ ...props }), 2000);
-    formRef?.current?.reset();
+    resetField('file');
   };
 
   return (
@@ -105,37 +97,23 @@ export function Contacts(props: IFormState) {
             <img src={ContactImg} alt="Contacts" className="contacts-img" />
           </div>
           <div className="contacts-form">
-            <form className="form" ref={formRef}>
+            <form className="form" onSubmit={handleSubmit(onSubmit)}>
               <label className="form-label">
                 Name:
-                <input
-                  type="text"
-                  data-testid="name-input"
-                  name="name"
-                  ref={fieldsRefs.inputName}
-                />
-                {warn.inputName && <span className="warning-message">{warn.inputName}</span>}
+                <input type="text" data-testid="name-input" {...register('name')} />
+                {errors && <span className="warning-message">{errors.name?.message}</span>}
               </label>
               <label className="form-label">
                 Birthday:
-                <input
-                  type="date"
-                  data-testid="date-input"
-                  placeholder="yyyy-mm-dd"
-                  name="birthday"
-                  ref={fieldsRefs.inputBirthday}
-                />
-                {warn.inputBirthday && (
-                  <span className="warning-message">{warn.inputBirthday}</span>
-                )}
+                <input type="date" data-testid="date-input" {...register('birthday')} />
+                {errors && <span className="warning-message">{errors.birthday?.message}</span>}
               </label>
               <label className="form-label">
                 Select country:
                 <select
-                  name="country"
                   data-testid="select-element"
-                  ref={fieldsRefs.inputCountry}
                   defaultValue={defaultCountry}
+                  {...register('country')}
                 >
                   <option value="Turkey" data-testid="select-option">
                     Turkey
@@ -156,7 +134,7 @@ export function Contacts(props: IFormState) {
                     {defaultCountry}
                   </option>
                 </select>
-                {warn.inputCountry && <span className="warning-message">{warn.inputCountry}</span>}
+                {errors && <span className="warning-message">{errors.country?.message}</span>}
               </label>
               <div>
                 Gender:
@@ -164,9 +142,8 @@ export function Contacts(props: IFormState) {
                   <input
                     type="radio"
                     data-testid="male-input"
-                    name="gender"
                     value="Male"
-                    ref={fieldsRefs.inputMale}
+                    {...register('gender')}
                   />
                   Male
                 </label>
@@ -174,52 +151,46 @@ export function Contacts(props: IFormState) {
                   <input
                     type="radio"
                     data-testid="female-input"
-                    name="gender"
                     value="Female"
-                    ref={fieldsRefs.inputFemale}
+                    {...register('gender')}
                   />
                   Female
                 </label>
-                {warn.inputGender && <span className="warning-message">{warn.inputGender}</span>}
+                {errors && <span className="warning-message">{errors.gender?.message}</span>}
               </div>
               <label className="form-label">
                 Choose profile picture
                 <input
                   type="file"
+                  {...rest}
+                  ref={(e) => {
+                    ref(e);
+                    fileInput.current = e;
+                  }}
                   name="file"
-                  ref={fieldsRefs.inputFile}
                   accept="image/jpeg, image/png, image/jpg, image/*"
                 />
                 <button
                   type="button"
                   className="upload-btn"
-                  onClick={() => fieldsRefs.inputFile?.current?.click()}
+                  onClick={() => fileInput.current?.click()}
                 >
                   Select file
                 </button>
-                {warn.inputFile && <span className="warning-message">{warn.inputFile}</span>}
+                {errors && <span className="warning-message">{errors.file?.message}</span>}
               </label>
               <label className="form-label checkbox-container">
                 <input
                   type="checkbox"
                   data-testid="checkbox-input"
-                  name="notification"
                   className="form-input_checkbox"
-                  ref={fieldsRefs.inputNotification}
+                  value="accepted"
+                  {...register('terms')}
                 />
                 <span className="notification-rule-text">I accept terms of use</span>
-                {warn.inputNotification && (
-                  <span className="warning-message terms">{warn.inputNotification}</span>
-                )}
+                {errors && <span className="warning-message terms">{errors.terms?.message}</span>}
               </label>
-              <button
-                type="submit"
-                className="submit-btn"
-                data-testid="submit-btn-test"
-                onClick={(e) => handleSubmit(e)}
-              >
-                Submit
-              </button>
+              <input type="submit" className="submit-btn" value="Submit" />
             </form>
           </div>
         </div>

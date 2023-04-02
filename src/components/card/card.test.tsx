@@ -6,28 +6,28 @@ import { cardsData } from '../../data/card_data';
 import { cardTestDataForm } from '../../data/test_data';
 
 describe('Card', () => {
-  it('Render Card component', () => {
+  it('Test class of product card component', () => {
     const { container } = render(<Card cardData={cardsData[0]} />);
     expect((container.firstChild as Element).classList.contains('card')).toBe(true);
   });
 
-  it('Render Card form component', () => {
-    const { container } = render(<Card cardData={cardTestDataForm} />);
+  it('Test class of form card component', () => {
+    const { container } = render(<Card cardData={{ ...cardTestDataForm }} />);
     expect((container.firstChild as Element).classList.contains('card')).toBe(true);
   });
 
-  it('Render Card form component', () => {
+  it('Render labels of card form component', () => {
     render(<Card cardData={cardTestDataForm} />);
 
-    expect(screen.getByText(cardTestDataForm.inputName as string)).toBeInTheDocument();
-    expect(screen.getByText(`Birthday: ${cardTestDataForm.inputBirthday}`)).toBeInTheDocument();
-    expect(screen.getByText(`Country: ${cardTestDataForm.inputCountry}`)).toBeInTheDocument();
+    expect(screen.getByText(cardTestDataForm.name as string)).toBeInTheDocument();
+    expect(screen.getByText(`Birthday: ${cardTestDataForm.birthday}`)).toBeInTheDocument();
+    expect(screen.getByText(`Country: ${cardTestDataForm.country}`)).toBeInTheDocument();
     expect(
-      screen.getByText(`Sex: ${cardTestDataForm.inputFemale ? 'female' : 'male'}`)
+      screen.getByText(`Sex: ${cardTestDataForm.gender === 'Female' ? 'female' : 'male'}`)
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        `Ability to send notifications: ${cardTestDataForm.inputNotification ? 'yes' : 'no'}`
+        `Ability to send notifications: ${cardTestDataForm.terms === 'accepted' ? 'yes' : 'no'}`
       )
     ).toBeInTheDocument();
   });

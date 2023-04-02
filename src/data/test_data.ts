@@ -1,11 +1,10 @@
-export const cardTestDataForm: IFormCardStore = {
-  inputName: 'Mary Ann',
-  inputBirthday: '1998-10-29',
-  inputFile: 'photo.png',
-  inputCountry: 'Italy',
-  inputMale: false,
-  inputFemale: true,
-  inputNotification: true,
+export const cardTestDataForm = {
+  name: 'Mary Ann',
+  birthday: '1998-10-29',
+  file: null,
+  country: 'Italy',
+  gender: 'male',
+  terms: 'accepted',
   fixedFilePath: 'somepath',
 };
 

@@ -1,3 +1,5 @@
+import { defaultCountry } from '../components/contacts/constants';
+
 export const warningsInitial: IFormWarnings = {
   inputName: '',
   inputBirthday: '',
@@ -7,14 +9,13 @@ export const warningsInitial: IFormWarnings = {
   inputFile: '',
 };
 
-export const cardsFieldsInitial: IFormFields = {
-  inputBirthday: '',
-  inputName: '',
-  inputFile: '',
-  inputCountry: '',
-  inputMale: false,
-  inputFemale: false,
-  inputNotification: false,
+export const cardsFieldsInitial = {
+  name: '',
+  birthday: '',
+  file: undefined,
+  country: defaultCountry,
+  gender: '',
+  terms: '',
 };
 
 export const formStateInitial: IFormState = {

@@ -16,12 +16,12 @@ export function Card(props: ICard) {
         ) : (
           <img
             src={cardData.fixedFilePath as string}
-            alt={cardData.inputName}
+            alt={cardData.name}
             className="card-img card-img_form"
           />
         )}
       </div>
-      <div className="card-title">{isPC ? cardData.title : cardData.inputName}</div>
+      <div className="card-title">{isPC ? cardData.title : cardData.name}</div>
       {isPC ? (
         <>
           <div className="card-description">{cardData.description}</div>
@@ -30,16 +30,14 @@ export function Card(props: ICard) {
       ) : (
         <>
           <div className="card-description card-description_form">
-            Birthday: {cardData.inputBirthday}
+            Birthday: {cardData.birthday}
+          </div>
+          <div className="card-description card-description_form">Country: {cardData.country}</div>
+          <div className="card-description card-description_form">
+            Sex: {cardData.gender === 'Female' ? 'female' : 'male'}
           </div>
           <div className="card-description card-description_form">
-            Country: {cardData.inputCountry}
-          </div>
-          <div className="card-description card-description_form">
-            Sex: {cardData.inputMale ? 'male' : 'female'}
-          </div>
-          <div className="card-description card-description_form">
-            Ability to send notifications: {cardData.inputNotification ? 'yes' : 'no'}
+            Ability to send notifications: {cardData.terms === 'accepted' ? 'yes' : 'no'}
           </div>
         </>
       )}
