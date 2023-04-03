@@ -1,0 +1,30 @@
+.overlay {
+  position: fixed;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.22);
+  transition: .5s;
+}
+
+.modal-container {
+  background-color: var(--color_primary_light);
+  padding: 20px;
+  border-radius: 15px;
+  transition: .5s;
+}
+
+.modal-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 35px;
+  letter-spacing: 0.05em;
+  color: var(--text_color_btn);
+}
