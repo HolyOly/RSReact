@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchSvg from '../../assets/svg/search.svg';
 import './search.css';
 
 export function Search() {
-  const [value, setValue] = useState({
-    valueFromLocalStorage: localStorage.getItem('searchQuery') || '',
-    newValue: '',
-  });
+  const [value, setValue] = useState('');
+  const [showedVal, setShowedValue] = useState('');
 
-  const handleSetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue({ ...value, newValue: e.target.value });
-    localStorage.setItem('searchQuery', e.target.value);
+  const updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('searchQuery')) {
+      setShowedValue(localStorage.getItem('searchQuery') || '');
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (value) {
+        localStorage.setItem('searchQuery', value);
+      }
+    };
+  });
 
   return (
     <div>
@@ -26,14 +37,12 @@ export function Search() {
           name="search"
           placeholder="search"
           id="searchInput"
-          onChange={(e) => handleSetValue(e)}
+          onChange={updateInputValue}
           data-testid="search-input-element"
         />
       </div>
-      {value.valueFromLocalStorage && (
-        <div className="storage-value ordinary-text">
-          From localStorage: {value.valueFromLocalStorage}
-        </div>
+      {showedVal && (
+        <div className="storage-value ordinary-text">From localStorage: {showedVal}</div>
       )}
     </div>
   );
