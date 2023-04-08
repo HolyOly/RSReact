@@ -13,11 +13,33 @@
   transition: .5s;
 }
 
+.modal-header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
 .modal-container {
-  background-color: var(--color_primary_light);
-  padding: 20px;
-  border-radius: 15px;
+  position: absolute;
+  padding: 25px;
   transition: .5s;
+  z-index: 2;
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.modal-content {
+  background-color: var(--color_primary_light);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.modal-image {
+  min-height: 300px;
+  max-height: 500px;
+  width: 100%;
+  background: no-repeat center;
+  background-size: cover;
 }
 
 .modal-text {
@@ -27,4 +49,5 @@
   line-height: 35px;
   letter-spacing: 0.05em;
   color: var(--text_color_btn);
+  padding: 20px;
 }

@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import SearchSvg from '../../assets/svg/search.svg';
 import './search.css';
 
-export function Search() {
-  const [value, setValue] = useState('');
-  const [showedVal, setShowedValue] = useState('');
+export interface ISearch {
+  onSend: (query: string) => void;
+}
 
-  const updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+export function Search(props: ISearch) {
+  const [value, setValue] = useState('');
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      props.onSend(value);
+    }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('searchQuery')) {
-      setShowedValue(localStorage.getItem('searchQuery') || '');
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      setValue(e.target.value);
     }
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (value) {
-        localStorage.setItem('searchQuery', value);
-      }
-    };
-  });
+  };
 
   return (
     <div>
@@ -37,13 +34,14 @@ export function Search() {
           name="search"
           placeholder="search"
           id="searchInput"
-          onChange={updateInputValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
           data-testid="search-input-element"
         />
       </div>
-      {showedVal && (
+      {/* {showedVal && (
         <div className="storage-value ordinary-text">From localStorage: {showedVal}</div>
-      )}
+      )} */}
     </div>
   );
 }

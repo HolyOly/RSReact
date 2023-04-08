@@ -79,3 +79,41 @@ declare interface IFormState {
 }
 
 declare type CardType = 'product' | 'form';
+
+declare interface IFetchData {
+  alt_description?: string;
+  blur_hash?: string;
+  color?: string;
+  created_at?: string;
+  current_user_collections?: [];
+  description?: string;
+  height?: number;
+  id?: string;
+  liked_by_user?: boolean;
+  likes?: number;
+  links?: { [key: string]: string };
+  promoted_at?: null;
+  sponsorship?: null;
+  tags?: { [key: string]: string }[];
+  topic_submissions?: Record<string, never>;
+  updated_at?: string;
+  urls?: { [key: string]: string };
+  user?: { [key: string]: string | boolean | number | null | { [key: string]: string } };
+  width?: number;
+}
+
+declare interface IModal {
+  mode?: 'success' | 'error' | 'info' | 'default';
+  title?: string;
+  text?: string;
+  position?: 'top' | 'center' | 'bottom';
+  img?: string;
+}
+
+declare interface IModalState extends IModal {
+  status: boolean;
+}
+
+declare interface IInitModalContext {
+  changeModalStatus: (status: boolean, data?: IModal) => void;
+}

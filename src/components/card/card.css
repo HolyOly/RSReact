@@ -23,11 +23,24 @@
   max-height: 320px;
 }
 
+.card-image-api {
+  min-height: 300px;
+  max-height: 350px;
+  width: 100%;
+  background: no-repeat center;
+  background-size: cover;
+}
+
 .card-title {
   font-weight: 700;
   font-size: 20px;
-  line-height: 20px;
+  line-height: 15px;
   color: var(--color_item_bright);
+}
+
+.api-title,
+.api-description {
+  padding: 10px;
 }
 
 .card-description {
@@ -35,6 +48,11 @@
   font-size: 16px;
   line-height: 20px;
   color: var(--text_title);
+}
+
+.api-description {
+  max-height: 150px;
+  overflow: hidden;
 }
 
 .card-description_form {
@@ -45,8 +63,21 @@
 
 .card-like {
   position: absolute;
+  display: flex;
+  gap: 5px;
   bottom: 5px;
   right: 10px;
+}
+
+.api-like {
+  color: var(--text_title);
+  font-size: 14px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 @media (min-width: 300px) and (max-width: 767px) {
