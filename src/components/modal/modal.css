@@ -25,6 +25,7 @@
   transition: .5s;
   z-index: 2;
   max-width: 700px;
+  min-width: 500px;
   max-height: 700px;
 }
 
@@ -35,7 +36,7 @@
 }
 
 .modal-image {
-  min-height: 300px;
+  min-height: 400px;
   max-height: 500px;
   width: 100%;
   background: no-repeat center;
@@ -50,4 +51,13 @@
   letter-spacing: 0.05em;
   color: var(--text_color_btn);
   padding: 20px;
+}
+
+.close {
+  transition: .5s;
+}
+
+.close:hover {
+  cursor: pointer;
+  fill: var(--color_primary_intensive);
 }

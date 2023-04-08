@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import LikeFill from '../../assets/svg/like-fill.svg';
 import Like from '../../assets/svg/like.svg';
 import './card.css';
-import { textTransformer } from '../../utils/card';
 import { ModalContext } from '../../GardenApp';
 
 export function CardApi(props: IFetchData) {
   const { changeModalStatus } = useContext(ModalContext);
   const { alt_description, created_at, description, likes, urls, tags } = props;
+
   return (
     <div
       className="card"
@@ -15,11 +15,8 @@ export function CardApi(props: IFetchData) {
         changeModalStatus(true, {
           mode: 'info',
           title: tags ? tags[0]?.title : alt_description,
-          text: textTransformer([
-            description || '',
-            alt_description || '',
-            `Created at: ${created_at?.slice(0, 10)}`,
-          ]),
+          text: description,
+          date: created_at?.slice(0, 10),
           img: urls?.small,
         })
       }

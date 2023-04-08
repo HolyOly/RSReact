@@ -13,6 +13,10 @@
   padding-bottom: 30px;
 }
 
+.card:hover {
+  cursor: pointer;
+}
+
 .card-img {
   max-width: 330px;
 }

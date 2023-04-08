@@ -108,6 +108,7 @@ declare interface IModal {
   text?: string;
   position?: 'top' | 'center' | 'bottom';
   img?: string;
+  date?: string;
 }
 
 declare interface IModalState extends IModal {

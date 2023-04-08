@@ -19,6 +19,7 @@ export function Modal(props: IModal) {
           {props.title ? <div className="modal-header">{props.title}</div> : ''}
           <div className="modal-body">
             <div className="modal-text">{props.text}</div>
+            {props.date && <div className="modal-text">{`Created at: ${props.date}`}</div>}
           </div>
         </div>
       </div>
