@@ -115,6 +115,7 @@ declare interface IModal {
   position?: 'top' | 'center' | 'bottom';
   img?: string;
   date?: string;
+  isCloseBtn?: boolean;
 }
 
 declare interface IModalState extends IModal {

@@ -200,7 +200,9 @@ export function Contacts(props: IFormState) {
           ))}
         </div>
       </div>
-      {form.submitStatus === successMode && <Modal mode={successMode} text={successText} />}
+      {form.submitStatus === successMode && (
+        <Modal mode={successMode} text={successText} isCloseBtn={false} />
+      )}
     </div>
   );
 }

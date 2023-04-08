@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Card } from './card';
+import { CardApi } from './apiCard';
 import { describe, it, expect } from 'vitest';
 import { cardsData } from '../../data/card_data';
-import { cardTestDataForm } from '../../data/test_data';
+import { apiCardData, cardTestDataForm } from '../../data/test_data';
+import { Modal } from '../modal/modal';
 
 describe('Card', () => {
   it('Test class of product card component', () => {
@@ -48,6 +50,25 @@ describe('Card', () => {
 
   it('additional check for a like', async () => {
     const { container } = render(<Card cardData={cardsData[0]} />);
+    const svgEl = container.querySelector('empty-like-svg') as SVGElement;
+    waitFor(() => expect(svgEl as SVGElement).toHaveClass('empty-like-svg'));
+  });
+
+  it('test api card', async () => {
+    render(<CardApi {...apiCardData} />);
+    expect(screen.getByText(apiCardData.likes as number)).toBeInTheDocument();
+  });
+
+  it('test api card', async () => {
+    render(<CardApi {...apiCardData} />);
+    const card = screen.getByText(apiCardData.likes as number);
+    fireEvent.click(card);
+    const { container } = render(<Modal />);
+    expect(container).toBeInTheDocument();
+  });
+
+  it('additional check for a like', async () => {
+    const { container } = render(<CardApi {...apiCardData} />);
     const svgEl = container.querySelector('empty-like-svg') as SVGElement;
     waitFor(() => expect(svgEl as SVGElement).toHaveClass('empty-like-svg'));
   });

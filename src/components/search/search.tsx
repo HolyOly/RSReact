@@ -39,9 +39,6 @@ export function Search(props: ISearch) {
           data-testid="search-input-element"
         />
       </div>
-      {/* {showedVal && (
-        <div className="storage-value ordinary-text">From localStorage: {showedVal}</div>
-      )} */}
     </div>
   );
 }

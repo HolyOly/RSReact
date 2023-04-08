@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Welcome } from '../sectionWelcome/welcome';
-import './home.css';
 import { Search } from '../search/search';
 import { CardApi } from '../card/apiCard';
 import { Loader } from '../loader/loader';
 import { Pagination } from '../pagination/pagination';
+import './home.css';
 
 export function Home() {
   const [data, setData] = useState<IFullFetchData>();
@@ -29,7 +29,6 @@ export function Home() {
         );
         const quotes = await rawQuotes.json();
         setData(quotes);
-        console.log(quotes);
       };
       fetchData().finally(() => setLoading(false));
     }
@@ -74,6 +73,7 @@ export function Home() {
           <Pagination
             initialDrawingPage={initialDrawingPage}
             curPage={curPage}
+            totalPages={data?.total_pages}
             setCurPage={(page) => setCurPage(page)}
             handleDrawPagePrev={handleDrawPagePrev}
             handleDrawPageNext={handleDrawPageNext}

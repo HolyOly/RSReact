@@ -7,11 +7,13 @@ export function Modal(props: IModal) {
   const { changeModalStatus } = useContext(ModalContext);
 
   return (
-    <div className="overlay" onClick={() => changeModalStatus(false)}>
+    <div className="overlay" data-testid="overlay" onClick={() => changeModalStatus(false)}>
       <div className="modal-container">
-        <div className="close" onClick={() => changeModalStatus(false)}>
-          <CloseBtn />
-        </div>
+        {props.isCloseBtn && (
+          <div className="close" onClick={() => changeModalStatus(false)}>
+            <CloseBtn />
+          </div>
+        )}
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           {props.img && (
             <div className="modal-image" style={{ backgroundImage: `url('${props.img}')` }}></div>

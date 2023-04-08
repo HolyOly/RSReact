@@ -18,6 +18,7 @@ export function CardApi(props: IFetchData) {
           text: description,
           date: created_at?.slice(0, 10),
           img: urls?.small,
+          isCloseBtn: true,
         })
       }
     >

@@ -12,3 +12,9 @@ export const testFormState: IFormState = {
   isValid: true,
   submitStatus: 'success',
 };
+
+export const apiCardData = {
+  mode: 'info',
+  description: 'Hello world my dear',
+  likes: 257,
+};
