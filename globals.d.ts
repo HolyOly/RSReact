@@ -102,6 +102,12 @@ declare interface IFetchData {
   width?: number;
 }
 
+declare interface IFullFetchData {
+  results: IFetchData[];
+  total: number;
+  total_pages: number;
+}
+
 declare interface IModal {
   mode?: 'success' | 'error' | 'info' | 'default';
   title?: string;

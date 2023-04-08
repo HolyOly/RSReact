@@ -62,6 +62,27 @@
   padding-bottom: 50px;
 }
 
+.pagination {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  justify-content: center;
+}
+
+.page-link {
+  color: var(--color_item_bright);
+  font-weight: 300;
+}
+
+.page-link:hover {
+  cursor: pointer;
+}
+
+.cur-page {
+  color: var(--color_item_bright);
+  font-weight: 700;
+}
+
 
 @media (min-width: 300px) and (max-width: 767px) {
   .cards-header {
