@@ -9,25 +9,27 @@ export function Home() {
   const [query, setQuery] = useState('');
   const [curPage, setCurPage] = useState(1);
   const [initialDrawingPage, setinitialDrawingPage] = useState(1);
+  const [sorting, setSorting] = useState('relevant');
 
   const handleSendQuery = (query: string) => {
     setQuery(query);
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const rawQuotes = await fetch(
-        `https://api.unsplash.com/search/photos?client_id=${
-          import.meta.env.VITE_ACCESS_KEY
-        }&page=${curPage}&query=${query}&per_page=12`
-      );
-      const quotes = await rawQuotes.json();
-      setData(quotes);
-      console.log(quotes);
-    };
-
-    fetchData();
-  }, [query, curPage, initialDrawingPage]);
+    if (query) {
+      const fetchData = async () => {
+        const rawQuotes = await fetch(
+          `https://api.unsplash.com/search/photos?client_id=${
+            import.meta.env.VITE_ACCESS_KEY
+          }&page=${curPage}&query=${query}&order_by=${sorting}&per_page=12`
+        );
+        const quotes = await rawQuotes.json();
+        setData(quotes);
+        console.log(quotes);
+      };
+      fetchData();
+    }
+  }, [query, curPage, sorting, initialDrawingPage]);
 
   const handleDrawPagePrev = () => {
     if (initialDrawingPage > 1) {
@@ -56,6 +58,13 @@ export function Home() {
         <p className="cards-header-title">Service and our projects</p>
         <div className="cards-header-items">
           <Search onSend={handleSendQuery} />
+          <label>
+            Sort by:
+            <select name="sort" defaultValue={sorting} onChange={(e) => setSorting(e.target.value)}>
+              <option value="relevant">relevant</option>
+              <option value="latest">latest</option>
+            </select>
+          </label>
         </div>
       </div>
       <div className="cards cards-wrapper content-wrapper">
