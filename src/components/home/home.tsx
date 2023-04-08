@@ -3,6 +3,8 @@ import { Welcome } from '../sectionWelcome/welcome';
 import './home.css';
 import { Search } from '../search/search';
 import { CardApi } from '../card/apiCard';
+import { Loader } from '../loader/loader';
+import { Pagination } from '../pagination/pagination';
 
 export function Home() {
   const [data, setData] = useState<IFullFetchData>();
@@ -10,6 +12,7 @@ export function Home() {
   const [curPage, setCurPage] = useState(1);
   const [initialDrawingPage, setinitialDrawingPage] = useState(1);
   const [sorting, setSorting] = useState('relevant');
+  const [isLoading, setLoading] = useState(false);
 
   const handleSendQuery = (query: string) => {
     setQuery(query);
@@ -17,6 +20,7 @@ export function Home() {
 
   useEffect(() => {
     if (query) {
+      setLoading(true);
       const fetchData = async () => {
         const rawQuotes = await fetch(
           `https://api.unsplash.com/search/photos?client_id=${
@@ -27,7 +31,7 @@ export function Home() {
         setData(quotes);
         console.log(quotes);
       };
-      fetchData();
+      fetchData().finally(() => setLoading(false));
     }
   }, [query, curPage, sorting, initialDrawingPage]);
 
@@ -41,14 +45,6 @@ export function Home() {
     if (data?.total_pages && initialDrawingPage + 9 < data?.total_pages) {
       setinitialDrawingPage(initialDrawingPage + 10);
     }
-  };
-
-  const createArrOfPages = (from: number) => {
-    const arr = [];
-    for (let i = from - 1; arr.length < 10; i++) {
-      arr.push(i);
-    }
-    return arr;
   };
 
   return (
@@ -67,29 +63,23 @@ export function Home() {
           </label>
         </div>
       </div>
+      {isLoading && <Loader />}
       <div className="cards cards-wrapper content-wrapper">
         {data?.results.map((card, index) => (
           <CardApi {...card} key={index} />
         ))}
       </div>
-      <div className="pagination content-wrapper">
-        <a className="page-link" onClick={handleDrawPagePrev}>
-          prev
-        </a>
-        {data?.total_pages &&
-          createArrOfPages(initialDrawingPage).map((page, index) => (
-            <a
-              className={`page-link ${page + 1 === curPage ? 'cur-page' : ''}`}
-              onClick={() => setCurPage(page + 1)}
-              key={index}
-            >
-              {page + 1}
-            </a>
-          ))}
-        <a className="page-link" onClick={handleDrawPageNext}>
-          next
-        </a>
-      </div>
+      {data?.total_pages && data?.total_pages > 0 && (
+        <div className="pagination content-wrapper">
+          <Pagination
+            initialDrawingPage={initialDrawingPage}
+            curPage={curPage}
+            setCurPage={(page) => setCurPage(page)}
+            handleDrawPagePrev={handleDrawPagePrev}
+            handleDrawPageNext={handleDrawPageNext}
+          />
+        </div>
+      )}
     </div>
   );
 }

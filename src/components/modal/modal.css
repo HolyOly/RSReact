@@ -9,7 +9,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.22);
+  background-color: rgba(0, 0, 0, 0.508);
   transition: .5s;
 }
 
@@ -55,6 +55,7 @@
 
 .close {
   transition: .5s;
+  fill: var(--color_primary_light);
 }
 
 .close:hover {
