@@ -8,7 +8,7 @@ import './home.css';
 
 export function Home() {
   const [data, setData] = useState<IFullFetchData>();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
   const [curPage, setCurPage] = useState(1);
   const [initialDrawingPage, setinitialDrawingPage] = useState(1);
   const [sorting, setSorting] = useState('relevant');
