@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import LogoSvg from '../../assets/svg/logo.svg';
 import './header.css';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { selectCurPage, updatePage } from '../../features/currentPage/currentPage';
 
 enum RouterPathes {
   HOME = '/',
@@ -10,7 +12,8 @@ enum RouterPathes {
 }
 
 export function Header() {
-  const [activeTab, setActiveTab] = useState(`${RouterPathes.HOME}`);
+  const curPage = useAppSelector(selectCurPage);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -22,22 +25,22 @@ export function Header() {
         <div className="links">
           <Link
             to={RouterPathes.HOME}
-            className={`links-item ${activeTab === RouterPathes.HOME ? 'active' : ''}`}
-            onClick={() => setActiveTab(`${RouterPathes.HOME}`)}
+            className={`links-item ${curPage === RouterPathes.HOME ? 'active' : ''}`}
+            onClick={() => dispatch(updatePage(`${RouterPathes.HOME}`))}
           >
             Home
           </Link>
           <Link
             to={RouterPathes.ABOUT}
-            className={`links-item ${activeTab === RouterPathes.ABOUT ? 'active' : ''}`}
-            onClick={() => setActiveTab(`${RouterPathes.ABOUT}`)}
+            className={`links-item ${curPage === RouterPathes.ABOUT ? 'active' : ''}`}
+            onClick={() => dispatch(updatePage(`${RouterPathes.ABOUT}`))}
           >
             About us
           </Link>
           <Link
             to={RouterPathes.CONTACTS}
-            className={`links-item ${activeTab === RouterPathes.CONTACTS ? 'active' : ''}`}
-            onClick={() => setActiveTab(`${RouterPathes.CONTACTS}`)}
+            className={`links-item ${curPage === RouterPathes.CONTACTS ? 'active' : ''}`}
+            onClick={() => dispatch(updatePage(`${RouterPathes.CONTACTS}`))}
           >
             Contacts
           </Link>

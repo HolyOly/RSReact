@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card } from '../card/card';
 import ContactImg from '../../assets/img/contacts.png';
-import { cardsFieldsInitial } from '../../data/initial_data';
-
-import { Modal } from '../modal/modal';
-import { handleFixFilePath } from '../../utils/form';
-import { defaultCountry, successMode, successText } from './constants';
-import './contacts.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Card } from '../card/card';
+import { Modal } from '../modal/modal';
+import { cardsFieldsInitial } from '../../data/initial_data';
+import { handleFixFilePath } from '../../utils/form';
+import { defaultCountry, successMode, successText } from './constants';
 import { hasNumber, isFutureDate } from '../../utils/validation';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {
+  selectFormData,
+  updateFormCards,
+  updateFormFields,
+} from '../../features/formCards/formData';
+import './contacts.css';
 
 const schema = yup
   .object({
@@ -49,13 +54,17 @@ export interface ICardStore extends FormData, IPath {}
 
 export function Contacts(props: IFormState) {
   const [form, setStateForm] = useState(props);
-  const [cards, setCardStore] = useState<ICardStore[]>([]);
+  const [fixedFilePath, setFixedFilePath] = useState('');
+
+  const formCardsStore = useAppSelector(selectFormData);
+  const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
     reset,
     resetField,
+    getValues,
     formState,
     formState: { errors, isSubmitSuccessful },
   } = useForm<FormData>({
@@ -74,7 +83,13 @@ export function Contacts(props: IFormState) {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     handleFixFilePath(data.file).then((path: string | null | undefined) => {
-      setCardStore([...cards, { ...data, fixedFilePath: path as string }]);
+      setFixedFilePath(path || '');
+      dispatch(
+        updateFormCards([
+          ...(formCardsStore.formCards as ICardStore[]),
+          { ...data, fixedFilePath: path as string, file: undefined },
+        ])
+      );
       successSubmission();
     });
   };
@@ -97,7 +112,19 @@ export function Contacts(props: IFormState) {
             <img src={ContactImg} alt="Contacts" className="contacts-img" />
           </div>
           <div className="contacts-form">
-            <form className="form" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              className="form"
+              onSubmit={handleSubmit(onSubmit)}
+              onChange={() =>
+                dispatch(
+                  updateFormFields({
+                    ...getValues(),
+                    fixedFilePath: fixedFilePath,
+                    file: undefined,
+                  })
+                )
+              }
+            >
               <label className="form-label">
                 Name:
                 <input type="text" data-testid="name-input" {...register('name')} />
@@ -195,7 +222,7 @@ export function Contacts(props: IFormState) {
           </div>
         </div>
         <div className="form-cards">
-          {cards.map((card, index) => (
+          {formCardsStore.formCards?.map((card, index) => (
             <Card cardData={card} key={index} />
           ))}
         </div>
