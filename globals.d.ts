@@ -125,3 +125,9 @@ declare interface IModalState extends IModal {
 declare interface IInitModalContext {
   changeModalStatus: (status: boolean, data?: IModal) => void;
 }
+
+declare interface ISearchParams {
+  curPage: number;
+  query: string;
+  sorting: string;
+}
