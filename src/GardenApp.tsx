@@ -1,4 +1,3 @@
-import './GardenApp.css';
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './components/header/header';
@@ -9,6 +8,7 @@ import { Undefined } from './components/undefinedPage/404';
 import { Contacts } from './components/contacts/contacts';
 import { formStateInitial } from './data/initial_data';
 import { Modal } from './components/modal/modal';
+import './GardenApp.css';
 
 export const ModalContext = React.createContext<IInitModalContext>({
   changeModalStatus: () => {},

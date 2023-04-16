@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-// import { useCardsData } from '../services/apiCards';
+import React, { useState } from 'react';
 import { useGetAlbumsQuery } from '../../app/services/apiCards';
-// import type { FormikHelpers } from 'formik'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Welcome } from '../sectionWelcome/welcome';
 import { Search } from '../search/search';
@@ -17,12 +15,7 @@ import {
 } from '../../features/fetchCards/fetchCardsParams';
 
 export function Home() {
-  // const [data, setData] = useState<IFullFetchData>();
-  // const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
-  // const [curPage, setCurPage] = useState(1);
   const [initialDrawingPage, setinitialDrawingPage] = useState(1);
-  // const [sorting, setSorting] = useState('relevant');
-  // const [isLoading, setLoading] = useState(false);
 
   const searchParams = useAppSelector(selectFetchParams);
   const dispatch = useAppDispatch();
@@ -40,27 +33,7 @@ export function Home() {
 
   const handleSendQuery = (query: string) => {
     dispatch(updateQuery(query));
-    // setQuery(query);
   };
-
-  useEffect(() => {
-    // if (query) {
-    //   setLoading(true);
-    //   const fetchData = async () => {
-    //     const rawQuotes = await fetch(
-    //       `https://api.unsplash.com/search/photos?client_id=${
-    //         import.meta.env.VITE_ACCESS_KEY
-    //       }&page=${curPage}&query=${query}&order_by=${sorting}&per_page=12`
-    //     );
-    //     const data = await rawQuotes.json();
-    //     setData(data);
-    //   };
-    //   fetchData().finally(() => setLoading(false));
-    //   console.log(data);
-    // }
-    console.log('datar', cardsObject, isError, error, isLoading);
-  });
-  // }, [query, curPage, sorting, initialDrawingPage]);
 
   const handleDrawPagePrev = () => {
     if (initialDrawingPage > 1) {
@@ -95,6 +68,7 @@ export function Home() {
         </div>
       </div>
       {isLoading && <Loader />}
+      {isError && <p>{`${error}`}</p>}
       <div className="cards cards-wrapper content-wrapper">
         {cardsObject?.results.map((card, index) => (
           <CardApi {...card} key={index} />
