@@ -1,0 +1,193 @@
+.contacts-wrapper {
+  background-color: var(--bg_section_primary);
+}
+
+.contacts-title {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-family: 'Inika';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 52px;
+  color: var(--color_primary_intensive);
+}
+
+.contacts-layout {
+  display: flex;
+  justify-content: space-evenly
+}
+
+.contacts-img,
+.contacts-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.contacts-img {
+  min-width: 400px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  min-width: 380px;
+  max-width: 500px;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.form label {
+  position: relative;
+}
+
+.form input,
+.form select,
+.upload-btn,
+.submit-btn {
+  background: var(--color_primary_light);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 35px;
+  letter-spacing: 0.05em;
+  color: var(--text_title);
+  transition: .5s;
+}
+
+.form select {
+  height: 37px;
+}
+
+.form input[type="text"],
+.form input[type="date"],
+.form input[type="radio"],
+.form select,
+.upload-btn {
+  margin-left: 20px;
+}
+
+.form input[type="file"] {
+  display: none;
+}
+
+.form input:active,
+.form input:focus,
+.form select:focus {
+  outline: none;
+  background-color: var(--color_primary_focus);
+}
+
+.checkbox-container {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.notification-rule-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 35px;
+  letter-spacing: 0.05em;
+  color: var(--text_title);
+  margin-left: 15px;
+}
+
+form .upload-btn,
+form .submit-btn {
+  color: var(--text_color_btn);
+}
+
+form .upload-btn:hover,
+form .submit-btn:hover {
+  cursor: pointer;
+  background-color: var(--color_primary_focus);
+}
+
+form .submit-btn:disabled {
+  background-color: var(--color_disabled);
+  cursor: default;
+}
+
+.empty {
+  background-color: var(--color_warning);
+}
+
+.file-name {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 12px;
+  color: var(--text_substring);
+  padding-left: 17px;
+  min-width: 60px;
+  max-width: 80px;
+  line-height: 14px;
+  overflow: hidden;
+}
+
+.warning-message {
+  position: absolute;
+  display: block;
+  font-size: 13px;
+  color: var(--color_warning_intensive);
+  padding: 0;
+  margin: 0;
+}
+
+.terms {
+  top: 25px;
+}
+
+.form-cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  gap: 20px;
+  justify-content: space-evenly;
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .contacts-layout {
+    flex-direction: column;
+  }
+
+  .form {
+    min-width: 250px;
+    margin: 30px auto;
+  }
+
+  .notification-rule-text {
+    text-align: left;
+    line-height: 20px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .contacts-layout {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .contacts-img {
+    max-width: 350px;
+  }
+
+  .form {
+    min-width: 300px;
+    max-width: 350px;
+    margin: 20px auto;
+  }
+
+  .notification-rule-text {
+    text-align: left;
+    line-height: 20px;
+  }
+}

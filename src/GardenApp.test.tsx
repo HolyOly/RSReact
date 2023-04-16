@@ -1,17 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
+import { store } from './app/store';
+import { render, screen } from '@testing-library/react';
 import { GardenApp } from './GardenApp';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+it('should render the component onto the screen', () => {
+  render(
     <Provider store={store}>
       <BrowserRouter>
         <GardenApp />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
-);
+  );
+  expect(screen.getByTestId('search-input-element')).toBeInTheDocument();
+});
