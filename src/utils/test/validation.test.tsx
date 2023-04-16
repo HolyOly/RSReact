@@ -10,9 +10,13 @@ import {
   isValidGender,
   isValidCheckboxTerm,
   isValidName,
+  isValidDate,
+  isValidLocation,
 } from '../validation';
+import { createArrOfPages } from '../card';
+import { handleFixFilePath } from '../form';
 import assert from 'assert';
-import { handleFixFilePath } from '../../utils/form';
+import { defaultCountry } from '../../components/contacts/constants';
 
 describe('Validation functions', () => {
   it('test isValidName', () => {
@@ -43,6 +47,12 @@ describe('Validation functions', () => {
     assert.equal(isFutureDate('2110-09-12'), true);
   });
 
+  it('test isValidDate', () => {
+    assert.equal(isValidDate(undefined), 'field cannot be empty');
+    assert.equal(isValidDate('3045-04-03'), 'invalid date');
+    assert.equal(isValidDate('1994-09-12'), '');
+  });
+
   it('test getShortFileName', () => {
     assert.equal(getShortFileName(undefined), '');
     assert.equal(getShortFileName('image.jpg'), 'image.jpg');
@@ -54,16 +64,24 @@ describe('Validation functions', () => {
     assert.equal(isValidFile('image.jpg'), '');
     assert.equal(isValidFile('imageimageimageimage.png', 'text.jpeg'), '');
     assert.equal(isValidFile(undefined), 'file not selected');
+    assert.equal(isValidFile(undefined, 'image.jpg'), 'file not selected');
   });
 
   it('test getFileExtension', () => {
     assert.equal(getFileExtension('thebestimage.tsx'), 'tsx');
+    assert.equal(getFileExtension('hello'), '');
   });
 
   it('test isValidGender', () => {
     assert.equal(isValidGender(false, false), 'select gender please');
     assert.equal(isValidGender(true, false), '');
     assert.equal(isValidGender(false, true), '');
+  });
+
+  it('test isValidLocation', () => {
+    assert.equal(isValidLocation(undefined), 'choose the country');
+    assert.equal(isValidLocation('Turkey'), '');
+    assert.equal(isValidLocation(defaultCountry), 'choose the country');
   });
 
   it('test isValidCheckboxTerm', () => {
@@ -74,5 +92,11 @@ describe('Validation functions', () => {
   it('test isValidCheckboxTerm', () => {
     expect(handleFixFilePath(null)).resolves.toBe('');
     expect(handleFixFilePath(undefined)).resolves.toBe('');
+  });
+
+  it('test createArrOfPages', () => {
+    assert.deepEqual(createArrOfPages(1, 834), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    assert.deepEqual(createArrOfPages(11, 834), [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]);
+    assert.deepEqual(createArrOfPages(1, 9), [0, 1, 2, 3, 4, 5, 6, 7, 8]);
   });
 });

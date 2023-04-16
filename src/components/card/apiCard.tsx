@@ -22,7 +22,11 @@ export function CardApi(props: IFetchData) {
         })
       }
     >
-      <div className="card-image-api" style={{ backgroundImage: `url('${urls?.small}')` }}></div>
+      <div
+        className="card-image-api"
+        data-testid="apiCardBackground"
+        style={{ backgroundImage: `url('${urls?.small}')` }}
+      ></div>
       <div className="card-title api-title">{tags ? tags[0]?.title : alt_description}</div>
       <div className="card-description api-description">
         {description ? description : alt_description}

@@ -1,15 +1,23 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { store } from '../../app/store';
 import { Contacts } from './contacts';
 import { testFormState } from '../../data/test_data';
 import { Modal } from '../modal/modal';
 import { formStateInitial, warningsInitial } from '../../data/initial_data';
 import assert from 'assert';
-import { defaultCountry, successMode } from './constants';
+import { defaultCountry, errorMode, errorText, successMode, successText } from './constants';
 
 describe('Form', () => {
-  beforeEach(() => render(<Contacts {...testFormState} />));
+  beforeEach(() =>
+    render(
+      <Provider store={store}>
+        <Contacts {...testFormState} />
+      </Provider>
+    )
+  );
   test('the existence of input text element', () => {
     const inputEl = screen.getByTestId('name-input');
     expect(inputEl).toBeInTheDocument();
@@ -109,5 +117,13 @@ describe('Form', () => {
     assert.equal(warningsInitial.inputName, '');
     assert.equal(warningsInitial.inputBirthday, '');
     assert.equal(warningsInitial.inputFile, '');
+  });
+
+  it('test constants ¯_(ツ)_/¯', () => {
+    assert.equal(defaultCountry, 'Choose a location');
+    assert.equal(successMode, 'success');
+    assert.equal(successText, 'Your data has been successfully saved');
+    assert.equal(errorMode, 'error');
+    assert.equal(errorText, 'An unknown error has occurred. Try later please');
   });
 });

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { KeyboardEvent } from 'react';
 import SearchSvg from '../../assets/svg/search.svg';
 import './search.css';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -11,21 +11,15 @@ export interface ISearch {
 export function Search(props: ISearch) {
   const inputText = useAppSelector(selectSearchText);
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState('');
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      props.onSend(value);
+      props.onSend(inputText);
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    dispatch(update(e.target.value));
-  };
-
   return (
-    <div>
+    <>
       <div className="search-wrapper">
         <div className="search__logo">
           <SearchSvg />
@@ -38,11 +32,11 @@ export function Search(props: ISearch) {
           placeholder="search"
           id="searchInput"
           defaultValue={inputText}
-          onChange={handleChange}
+          onChange={(e) => dispatch(update(e.target.value))}
           onKeyDown={handleKeyDown}
           data-testid="search-input-element"
         />
       </div>
-    </div>
+    </>
   );
 }

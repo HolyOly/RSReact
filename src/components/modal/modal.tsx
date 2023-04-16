@@ -16,7 +16,11 @@ export function Modal(props: IModal) {
         )}
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           {props.img && (
-            <div className="modal-image" style={{ backgroundImage: `url('${props.img}')` }}></div>
+            <div
+              className="modal-image"
+              data-testid="modalBackground"
+              style={{ backgroundImage: `url('${props.img}')` }}
+            ></div>
           )}
           {props.title ? <div className="modal-header">{props.title}</div> : ''}
           <div className="modal-body">
