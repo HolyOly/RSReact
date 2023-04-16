@@ -1,0 +1,119 @@
+.home-wrapper {
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--bg_section_primary);
+}
+
+.cards-header {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  height: 300px;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.cards-header-title {
+  max-width: 306px;
+  font-family: 'Inika', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 52px;
+  color: var(--color_primary_intensive);
+}
+
+.cards-header-items {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  gap: 20px;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.cards-header-links {
+  display: flex;
+  gap: 30px;
+}
+
+.header-item {
+  border: 1px solid var(--color_item_bright);
+  border-radius: 5px;
+  padding: 10px 30px;
+  font-family: 'Inika', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--color_item_bright);
+}
+
+.header-item:visited {
+  color: var(--color_item_bright);
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 25px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.pagination {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  justify-content: center;
+}
+
+.page-link {
+  color: var(--color_item_bright);
+  font-weight: 300;
+}
+
+.page-link:hover {
+  cursor: pointer;
+}
+
+.cur-page {
+  color: var(--color_item_bright);
+  font-weight: 700;
+}
+
+select {
+  background: var(--color_primary_light);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 35px;
+  letter-spacing: 0.05em;
+  color: var(--text_title);
+  transition: .5s;
+  height: 37px;
+  width: 110px;
+  margin-left: 20px;
+}
+
+select:focus {
+  outline: none;
+  background-color: var(--color_primary_focus);
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .cards-header {
+    flex-direction: column;
+  }
+
+  .cards-header-items {
+    margin-left: 0px;
+    gap: 20px;
+    min-width: 100px;
+    max-width: 200px;
+  }
+}

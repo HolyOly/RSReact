@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  justify-content: center;
+}
+
+.page-link {
+  color: var(--color_item_bright);
+  font-weight: 300;
+}
+
+.page-link:hover {
+  cursor: pointer;
+}
+
+.cur-page {
+  color: var(--color_item_bright);
+  font-weight: 700;
+}
