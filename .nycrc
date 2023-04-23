@@ -9,7 +9,8 @@
     "cypress/**/*.*",
     "**/*.d.ts",
     "**/*.cy.tsx",
-    "**/*.cy.ts"
+    "**/*.cy.ts",
+    "**/*.test.tsx"
   ],
   "check-coverage": true,
   "sourceMap": true,

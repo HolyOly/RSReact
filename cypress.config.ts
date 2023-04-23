@@ -12,13 +12,8 @@ export default defineConfig({
     },
     baseUrl: 'http://localhost:7456',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
+    excludeSpecPattern: ['*.cy.ts', 'src/**/*.test.tsx', '*/**/FolderToExclude'],
     video: false,
     defaultCommandTimeout: 15000,
-  },
-  component: {
-    devServer: {
-      framework: 'react',
-      bundler: 'vite',
-    },
   },
 });
