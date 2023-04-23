@@ -1,0 +1,22 @@
+{
+  "all": true,
+  "reporter": ["lcov", "cobertura", "text", "text-summary"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "cypress/**/*.*",
+    "**/*.d.ts",
+    "**/*.cy.tsx",
+    "**/*.cy.ts"
+  ],
+  "check-coverage": true,
+  "sourceMap": true,
+  "instrument": true,
+  "cache": true,
+  "branches": 100,
+  "functions": 100,
+  "lines": 100,
+  "statements": 100
+}
