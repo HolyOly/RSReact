@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Request, Response, NextFunction } from 'express';
 import fs from 'fs/promises';
 import path from 'path';
@@ -69,10 +68,10 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
       const html = template.replace(`<!--app-html-->`, appHtml).replace(`<!--head-->`, cssAssets);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-    } catch (e: any) {
-      !isProd && vite.ssrFixStacktrace(e);
-      console.log(e.stack);
-      vite.ssrFixStacktrace(e);
+    } catch (e) {
+      !isProd && vite.ssrFixStacktrace(e as Error);
+      console.log((e as Error).stack);
+      vite.ssrFixStacktrace(e as Error);
       next(e);
     }
   });

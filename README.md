@@ -2,7 +2,7 @@
 
 - Cross-Browser Compatibility: Chrome 81.0.4044+, Mozilla Firefox 94.0.2+, Safari 6.1 (18614.2.9.1.12)
 
-- Testing framework/library: React Testing Library
+- Testing framework/library: React Testing Library, Cypress
 
 - Development tool: Vite
 
