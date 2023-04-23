@@ -1,20 +1,30 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "lib": ["dom", "esnext", "dom.iterable"],
-    "jsx": "react",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "noFallthroughCasesInSwitch": true,
+    "allowJs": true,
+    "alwaysStrict": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "checkJs": true,
+    "declaration": true,
+    "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "jsx": "react-jsxdev",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "skipLibCheck": true,
-    "baseUrl": "./src",
-    "resolveJsonModule": true,
-    "strictPropertyInitialization": false
+    "sourceMap": true,
+    "target": "ES2017",
+    "outDir": "./dist"
   },
-  "include": ["./src/**/*", "./*.d.ts", "globals.d.ts"]
+  "include": ["src/**/*", "types/*", "server.ts", "node_modules/vite/types/*", "*.d.ts"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }

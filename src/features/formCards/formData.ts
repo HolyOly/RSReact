@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { ICardStore } from 'components/contacts/contacts';
+import { ICardStore } from '../../components/contacts/contacts';
 
 export interface IFormData {
   formCards?: ICardStore[];

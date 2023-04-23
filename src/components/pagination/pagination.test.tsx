@@ -11,6 +11,7 @@ describe('Pagination', () => {
         setCurPage={() => {}}
         handleDrawPagePrev={() => {}}
         handleDrawPageNext={() => {}}
+        totalPages={10}
       />
     )
   );
