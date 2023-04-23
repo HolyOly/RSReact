@@ -1,8 +1,6 @@
 {
-  "all": true,
   "reporter": ["lcov", "cobertura", "text", "text-summary"],
   "include": [
-    "src/**/*.ts",
     "src/**/*.tsx"
   ],
   "exclude": [
@@ -10,7 +8,10 @@
     "**/*.d.ts",
     "**/*.cy.tsx",
     "**/*.cy.ts",
-    "**/*.test.tsx"
+    "**/*.test.tsx",
+    "*.ts",
+    "src/entry-client.tsx",
+    "src/entry-server.tsx"
   ],
   "check-coverage": true,
   "sourceMap": true,

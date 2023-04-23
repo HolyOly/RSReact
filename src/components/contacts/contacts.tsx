@@ -185,7 +185,7 @@ export function Contacts(props: IFormState) {
                 </label>
                 {errors && <span className="warning-message">{errors.gender?.message}</span>}
               </div>
-              <label className="form-label">
+              <label className="form-label input-file-label">
                 Choose profile picture
                 <input
                   type="file"

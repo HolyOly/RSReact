@@ -60,6 +60,7 @@ export function Home() {
               name="sort"
               defaultValue={searchParams.sorting}
               onChange={(e) => dispatch(updateSorting(e.target.value))}
+              data-testid="select-element-sorting"
             >
               <option value="relevant">relevant</option>
               <option value="latest">latest</option>

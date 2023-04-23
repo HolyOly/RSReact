@@ -23,7 +23,7 @@
     "copy-files": "copyfiles src/assets/* dist/assets && copyfiles index.html dist/client && copyfiles -f dist/client/assets/* dist/assets",
     "test:cypress": "start-server-and-test start http://localhost:7456 cypress",
     "cypress": "cypress run",
-    "cypress:o": "cypress open",
+    "cypress:o": "cypress open run",
     "cover": "nyc --reporter=html --reporter=text-summary"
   },
   "dependencies": {

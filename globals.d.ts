@@ -7,7 +7,7 @@ declare interface IProductCard {
 }
 
 declare interface ICard {
-  cardData: IProductCard | IShortForm;
+  cardData: IShortForm;
 }
 
 declare interface IIcon {

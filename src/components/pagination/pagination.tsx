@@ -22,7 +22,7 @@ export function Pagination(props: IPagination) {
 
   return (
     <>
-      <a className="page-link" onClick={handleDrawPagePrev}>
+      <a className="page-link side" onClick={handleDrawPagePrev}>
         prev
       </a>
       {createArrOfPages(initialDrawingPage, totalPages).map((page, index) => (
@@ -34,7 +34,7 @@ export function Pagination(props: IPagination) {
           {page + 1}
         </a>
       ))}
-      <a className="page-link" onClick={handleDrawPageNext}>
+      <a className="page-link side" onClick={handleDrawPageNext}>
         next
       </a>
     </>

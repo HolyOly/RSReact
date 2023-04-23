@@ -1,8 +1,16 @@
 /// <reference types="cypress" />
 
-describe('example to-do app', () => {
-  it('can filter for uncompleted tasks', () => {
+describe('test Home page', () => {
+  beforeEach(() => {
     cy.visit('/');
+  });
+
+  it('test input', () => {
     cy.get('input').should('have.text', '');
+  });
+
+  it('test filter dropdown', () => {
+    cy.get('[data-testid="select-element-sorting"]').should('be.visible');
+    cy.get('[data-testid="select-element-sorting"]').should('have.value', 'relevant');
   });
 });
