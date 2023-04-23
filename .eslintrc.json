@@ -23,7 +23,7 @@
 		"sourceType": "module"
   },
   "plugins": [
-    "@typescript-eslint", "react", "prettier", "react-hooks"
+    "@typescript-eslint", "react", "prettier", "react-hooks", "cypress"
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
