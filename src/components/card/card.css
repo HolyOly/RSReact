@@ -1,0 +1,93 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: first baseline;
+  align-items: center;
+  gap: 10px;
+  width: 330px;
+  height: 450px;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid #E3E1D5;
+  padding-bottom: 30px;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.card-img {
+  max-width: 330px;
+}
+
+.card-img_form {
+  min-width: 330px;
+  min-height: 300px;
+  max-height: 320px;
+}
+
+.card-image-api {
+  min-height: 300px;
+  max-height: 350px;
+  width: 100%;
+  background: no-repeat center;
+  background-size: cover;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 15px;
+  color: var(--color_item_bright);
+}
+
+.api-title,
+.api-description {
+  padding: 10px;
+}
+
+.card-description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text_title);
+}
+
+.api-description {
+  max-height: 150px;
+  overflow: hidden;
+}
+
+.card-description_form {
+  align-self: flex-start;
+  line-height: 17px;
+  margin: auto 40px;
+}
+
+.card-like {
+  position: absolute;
+  display: flex;
+  gap: 5px;
+  bottom: 5px;
+  right: 10px;
+}
+
+.api-like {
+  color: var(--text_title);
+  font-size: 14px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .card-description_form {
+    align-self: flex-start;
+    line-height: 15px;
+    margin: auto 20px;
+  }
+}
